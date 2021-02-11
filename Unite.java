@@ -10,7 +10,11 @@ public class Unite {
     }
 
     public void attack(Unite enemy){
-        enemy.hp=enemy.hp+enemy.def-this.dmg;
+        if(enemy.isAlive()){
+            if(enemy.def<this.dmg){
+                enemy.hp=enemy.hp+enemy.def-this.dmg;
+            }
+        }
     }
 
     public boolean isAlive(){
