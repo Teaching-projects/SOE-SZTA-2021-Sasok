@@ -3,10 +3,6 @@ public class Main {
         Unite our = new Unite(5, 6, 8);
         Unite enemy = new Unite(8, 8, 10);
         our.attack(enemy);
-        if (our.isAlive()){
-            System.out.println("Tuleltuk! :)");
-        } else {
-            System.out.println("Meghaltunk. :(");
-        }
+        System.out.println((our.isAlive()) ? "Tuleltuk! :)" : "Meghaltunk! :(");
     }
 }
