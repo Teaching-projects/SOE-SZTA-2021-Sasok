@@ -15,6 +15,6 @@ public class Unit {
     }
 
     public boolean isAlive(){
-        return (this.hp > 0) ? true : false;
+        return this.hp > 0;
     }
 }
