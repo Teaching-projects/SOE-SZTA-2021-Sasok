@@ -9,8 +9,7 @@ public class Unit {
 
     public void attack(Unit enemy){
         if(enemy.isAlive() && this.isAlive()){
-                enemy.hp=enemy.hp-this.dmg;
-            
+                enemy.hp -= this.dmg;  
         }
     }
 
