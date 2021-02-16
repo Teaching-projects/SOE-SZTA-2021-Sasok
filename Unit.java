@@ -1,15 +1,15 @@
 public class Unit {
-    final int DMG;
+    final int dmg;
     int hp;
     
-    public Unit (int DMG, int hp){
-        this.DMG=DMG;
+    public Unit (int dmg, int hp){
+        this.dmg=dmg;
         this.hp=hp;
     }
 
     public void attack(Unit enemy){
         if(enemy.isAlive() && this.isAlive()){
-                enemy.hp=enemy.hp-this.DMG;
+                enemy.hp=enemy.hp-this.dmg;
             
         }
     }
