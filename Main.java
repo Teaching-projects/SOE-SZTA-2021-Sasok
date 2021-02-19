@@ -15,5 +15,22 @@ public class Main {
         Unit warrior = new Unit(warriorDmg, warriorHp);
         Unit shaman = new Unit(shamanDmg, shamanHp);
         System.out.println("Warrior élete és sebzése: "+ warrior.hp +", "+ warrior.dmg + " || Shaman élete és sebzése: " + shaman.hp + ", " + shaman.dmg);
+        battle(warrior,shaman);
     } 
+    private static void battle (Unit our, Unit enemy){
+        while(our.isAlive() && enemy.isAlive()){
+            our.attack(enemy);
+            if(our.isAlive() && enemy.isAlive()){
+                enemy.attack(our);
+            }
+        }
+        if(our.hp>enemy.hp){
+            System.out.println("Nyertünk!");
+        }
+        else{
+            System.out.println("Vesztettünk!");
+        }
+
+
+    }
 }
