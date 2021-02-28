@@ -19,20 +19,16 @@ public class Main {
         sc.close();
     } 
 
-    private static void battle (Unit our, Unit enemy){
+    private static void battle (Unit unit1, Unit unit2){
         int i = 1;
-        while(our.isAlive() && enemy.isAlive()){
-            our.attack(enemy);
-            if(our.isAlive() && enemy.isAlive()){
-                enemy.attack(our);
-                if (our.hp < 0 || enemy.hp < 0)
-                    System.out.println(i + ". körben a maradék életünk: " + our.hp + ", lenne az ellenség maradék élete: " + enemy.hp + " lenne");
-                else
-                    System.out.println(i + ". körben a maradék életünk: " + our.hp + ", az ellenség maradék élete: " + enemy.hp);
-                i++;
-            }
+        while(unit1.isAlive() && unit2.isAlive()){
+            unit1.attack(unit2);
+            System.out.println(i + ". körben az első egység élete: " + unit1.hp + ", a második egység élete: " + unit2.hp);
+            i++;
+            unit2.attack(unit1);
+            System.out.println(i + ". körben az első egység élete: " + unit1.hp + ", a második egység élete: " + unit2.hp);
+            i++;
         }
-
-        System.out.println(our.isAlive() ? "\nNyertünk!" : "\nVesztettünk!");
+        System.out.println(unit1.isAlive() ? unit1 + " nyert" : unit2 +" nyert");
     }
 }
