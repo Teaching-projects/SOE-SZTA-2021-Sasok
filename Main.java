@@ -33,6 +33,6 @@ public class Main {
             }
         }
 
-        System.out.println((our.hp>enemy.hp) ? "\nNyertünk!" : "\nVesztettünk!");
+        System.out.println(our.isAlive() ? "\nNyertünk!" : "\nVesztettünk!");
     }
 }
