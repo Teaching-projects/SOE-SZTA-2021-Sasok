@@ -10,13 +10,16 @@ public class Main {
         int i = 1;
         while (unit1.isAlive() && unit2.isAlive()) {
             unit1.attack(unit2);
-            System.out.println(
-                    i + ". körben " + unit1.name + " élete: " + unit1.hp + " || " + unit2.name + " élete: " + unit2.hp);
-            i++;
+            System.out.println(i + ". körben " + unit1.name + " támad --- " + unit1.name + " élete: " + unit1.hp
+                    + " || " + unit2.name + " élete: " + unit2.hp);
+            if (!unit2.isAlive()) {
+                break;
+            }
             unit2.attack(unit1);
-            System.out.println(
-                    i + ". körben " + unit1.name + " élete: " + unit1.hp + " || " + unit2.name + " élete: " + unit2.hp);
             i++;
+            System.out.println(i + ". körben " + unit2.name + " támad, ---" + unit1.name + " élete: " + unit1.hp
+                    + " || " + unit2.name + " élete: " + unit2.hp);
+
         }
         System.out.println(unit1.isAlive() ? "\n" + unit1.name.toUpperCase() + " GYŐZEDELMESKEDETT!"
                 : "\n" + unit2.name.toUpperCase() + " GYŐZEDELMESKEDETT!");
