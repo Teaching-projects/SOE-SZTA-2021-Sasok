@@ -1,7 +1,7 @@
 public class Unit {
-    String name;
-    final int dmg;
-    int hp;
+    final String name;
+    private final int dmg;
+    private int hp;
 
     public Unit(String name, int dmg, int hp) {
         this.name = name;
@@ -13,6 +13,10 @@ public class Unit {
         if (enemy.isAlive() && this.isAlive()) {
             enemy.hp -= this.dmg;
         }
+    }
+
+    public int getHP(){
+        return this.hp;
     }
 
     public boolean isAlive() {
