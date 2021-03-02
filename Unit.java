@@ -1,5 +1,5 @@
 public class Unit {
-    final String name;
+    private final String name;
     private final int dmg;
     private int hp;
 
@@ -17,6 +17,10 @@ public class Unit {
 
     public int getHP(){
         return this.hp;
+    }
+
+    public String getName(){
+        return this.name;
     }
 
     public boolean isAlive() {
