@@ -29,7 +29,7 @@ public class Main {
                 answer = sc.nextInt();
                 acceptable = false;
             } else {
-                System.out.println(sc.next() + " is not an acceptable type. ");
+                System.out.println(sc.next() + " nem érvényes értéket adott meg, adjon meg egy számot! ");
             }
         } while (acceptable);
         return answer;
