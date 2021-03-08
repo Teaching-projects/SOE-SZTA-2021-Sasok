@@ -7,12 +7,14 @@ public class Main {
 
         int unit1Hp = readIn(sc, "Első egység HP-ja: ");
         int unit1Dmg = readIn(sc, "Első egység DMG-je: ");
+        int unit1As = readIn(sc, "Első egység AS-je: ");
         int unit2Hp = readIn(sc, "Második egység HP-ja: ");
         int unit2Dmg = readIn(sc, "Második egység DMG-je: ");
+        int unit2As = readIn(sc, "Második egység AS-je: ");
 
         // Két Unit létrehozása
-        Unit unit1 = new Unit("Warrior", unit1Dmg, unit1Hp);
-        Unit unit2 = new Unit("Shaman", unit2Dmg, unit2Hp);
+        Unit unit1 = new Unit("Warrior", unit1Dmg, unit1Hp, unit1As);
+        Unit unit2 = new Unit("Shaman", unit2Dmg, unit2Hp, unit2As);
 
         sc.close();
 
@@ -36,21 +38,31 @@ public class Main {
     }
 
     private static void battle(Unit unit1, Unit unit2) {
-        System.out.println(
-                "\nA Csata elkezdődött! " + unit1.getName() + " kezdheti a támadást " + unit2.getName() + (" ellen."));
-        int i = 1;
-        while (unit1.isAlive() && unit2.isAlive()) {
-            unit1.attack(unit2);
-            System.out.println(i + ". körben " + unit1.getName() + " támad --- " + unit1.getName() + " élete: "
-                    + unit1.getHP() + " || " + unit2.getName() + " élete: " + unit2.getHP());
-            if (!unit2.isAlive()) {
-                break;
-            }
-            unit2.attack(unit1);
+        int as1 = unit1.getAs();
+        int as2 = unit2.getAs();
+        String name1 = unit1.getName();
+        String name2 = unit2.getName();
+        boolean bothAlive = true;
+        // Mindkettő megüti egymást elősször
+        unit1.attack(unit2);
+        unit2.attack(unit1);
+        System.out.println("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadták egymást. Életük: " + name1
+                + " " + unit1.getHP() + ", " + name2 + " " + unit2.getHP());
+        // Amíg mindkettő él
+        int i = 0;
+        while (bothAlive) {
             i++;
-            System.out.println(i + ". körben " + unit2.getName() + " támad, ---" + unit1.getName() + " élete: "
-                    + unit1.getHP() + " || " + unit2.getName() + " élete: " + unit2.getHP());
-
+            if (i % as1 == 0) {
+                unit1.attack(unit2);
+                System.out.println(name1 + " megtámadta " + name2 + ", így " + name2 + " élete - " + unit2.getHP());
+            }
+            if (i % as2 == 0) {
+                unit2.attack(unit1);
+                System.out.println(name2 + " megtámadta " + name1 + ", így " + name1 + " élete - " + unit1.getHP());
+            }
+            if (unit1.isAlive() == false || unit2.isAlive() == false) {
+                bothAlive = false;
+            }
         }
         System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " GYŐZEDELMESKEDETT!"
                 : "\n" + unit2.getName().toUpperCase() + " GYŐZEDELMESKEDETT!");

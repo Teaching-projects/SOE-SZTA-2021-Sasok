@@ -2,11 +2,14 @@ public class Unit {
     private final String name;
     private final int dmg;
     private int hp;
+    // hány másodpercet kell várnia, hogy ütni tudjon?
+    private int as;
 
-    public Unit(String name, int dmg, int hp) {
+    public Unit(String name, int dmg, int hp, int as) {
         this.name = name;
         this.dmg = dmg;
         this.hp = hp;
+        this.as = as;
     }
 
     public void attack(Unit enemy) {
@@ -15,12 +18,20 @@ public class Unit {
         }
     }
 
-    public int getHP(){
+    public int getHP() {
         return this.hp;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
+    }
+
+    public int getDMG() {
+        return this.dmg;
+    }
+
+    public int getAs() {
+        return this.as;
     }
 
     public boolean isAlive() {
