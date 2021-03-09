@@ -1,11 +1,10 @@
 public class Unit {
     private final String name;
-    private final int dmg;
-    private int hp;
-    // hány másodpercet kell várnia, hogy ütni tudjon?
-    private int as;
+    private final double dmg;
+    private double hp;
+    private double as;
 
-    public Unit(String name, int dmg, int hp, int as) {
+    public Unit(String name, double dmg, double hp, double as) {
         this.name = name;
         this.dmg = dmg;
         this.hp = hp;
@@ -18,7 +17,7 @@ public class Unit {
         }
     }
 
-    public int getHP() {
+    public double getHP() {
         return this.hp;
     }
 
@@ -26,11 +25,11 @@ public class Unit {
         return this.name;
     }
 
-    public int getDMG() {
+    public double getDMG() {
         return this.dmg;
     }
 
-    public int getAs() {
+    public double getAs() {
         return this.as;
     }
 
