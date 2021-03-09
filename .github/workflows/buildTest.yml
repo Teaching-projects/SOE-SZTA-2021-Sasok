@@ -1,0 +1,9 @@
+name: "Alap build teszt"
+
+on: push
+jobs: 
+  Build_Project:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+      - run: javac *.java
