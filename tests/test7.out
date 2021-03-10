@@ -1,0 +1,19 @@
+Első egység HP-ja: Első egység DMG-je: Második egység HP-ja: Második egység DMG-je: 
+A Csata elkezdődött! Warrior kezdheti a támadást Shaman ellen.
+1. körben Warrior támad --- Warrior élete: 258 || Shaman élete: 224
+2. körben Shaman támad, ---Warrior élete: 222 || Shaman élete: 224
+2. körben Warrior támad --- Warrior élete: 222 || Shaman élete: 192
+3. körben Shaman támad, ---Warrior élete: 186 || Shaman élete: 192
+3. körben Warrior támad --- Warrior élete: 186 || Shaman élete: 160
+4. körben Shaman támad, ---Warrior élete: 150 || Shaman élete: 160
+4. körben Warrior támad --- Warrior élete: 150 || Shaman élete: 128
+5. körben Shaman támad, ---Warrior élete: 114 || Shaman élete: 128
+5. körben Warrior támad --- Warrior élete: 114 || Shaman élete: 96
+6. körben Shaman támad, ---Warrior élete: 78 || Shaman élete: 96
+6. körben Warrior támad --- Warrior élete: 78 || Shaman élete: 64
+7. körben Shaman támad, ---Warrior élete: 42 || Shaman élete: 64
+7. körben Warrior támad --- Warrior élete: 42 || Shaman élete: 32
+8. körben Shaman támad, ---Warrior élete: 6 || Shaman élete: 32
+8. körben Warrior támad --- Warrior élete: 6 || Shaman élete: 0
+
+WARRIOR GYOZEDELMESKEDETT!
