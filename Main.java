@@ -52,7 +52,7 @@ public class Main {
                     + unit1.getHP() + " || " + unit2.getName() + " élete: " + unit2.getHP());
 
         }
-        System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " GYŐZEDELMESKEDETT!"
-                : "\n" + unit2.getName().toUpperCase() + " GYŐZEDELMESKEDETT!");
+        System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " GYOZEDELMESKEDETT!"
+                : "\n" + unit2.getName().toUpperCase() + " GYOZEDELMESKEDETT!");
     }
 }
