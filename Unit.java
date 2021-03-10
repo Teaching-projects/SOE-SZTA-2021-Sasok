@@ -1,10 +1,10 @@
 public class Unit {
     private final String name;
-    private final double dmg;
-    private double hp;
+    private final int dmg;
+    private int hp;
     private double as;
 
-    public Unit(String name, double dmg, double hp, double as) {
+    public Unit(String name, int dmg, int hp, double as) {
         this.name = name;
         this.dmg = dmg;
         this.hp = hp;
@@ -15,9 +15,16 @@ public class Unit {
         if (enemy.isAlive() && this.isAlive()) {
             enemy.hp -= this.dmg;
         }
+        setAs(as);
     }
 
-    public double getHP() {
+    public boolean isAlive() {
+        return this.hp > 0;
+    }
+
+    // Getters
+
+    public int getHp() {
         return this.hp;
     }
 
@@ -25,7 +32,7 @@ public class Unit {
         return this.name;
     }
 
-    public double getDMG() {
+    public int getDmg() {
         return this.dmg;
     }
 
@@ -33,8 +40,9 @@ public class Unit {
         return this.as;
     }
 
-    public boolean isAlive() {
-        return this.hp > 0;
-    }
+    // Setters
 
+    public void setAs(double as) {
+        this.as = as;
+    }
 }

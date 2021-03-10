@@ -5,11 +5,11 @@ public class Main {
         // Paraméterek bekérése Scanner-el
         Scanner sc = new Scanner(System.in);
 
-        double unit1Hp = readIn(sc, "Első egység HP-ja: ");
-        double unit1Dmg = readIn(sc, "Első egység DMG-je: ");
+        int unit1Hp = (int) readIn(sc, "Első egység HP-ja: ");
+        int unit1Dmg = (int) readIn(sc, "Első egység DMG-je: ");
         double unit1As = readIn(sc, "Első egység AS-je: ");
-        double unit2Hp = readIn(sc, "Második egység HP-ja: ");
-        double unit2Dmg = readIn(sc, "Második egység DMG-je: ");
+        int unit2Hp = (int) readIn(sc, "Második egység HP-ja: ");
+        int unit2Dmg = (int) readIn(sc, "Második egység DMG-je: ");
         double unit2As = readIn(sc, "Második egység AS-je: ");
 
         // Két Unit létrehozása
@@ -38,38 +38,43 @@ public class Main {
     }
 
     private static void battle(Unit unit1, Unit unit2) {
-        double as1 = unit1.getAs();
-        double as2 = unit2.getAs();
         String name1 = unit1.getName();
         String name2 = unit2.getName();
-        boolean bothAlive = true;
-
-        // Amíg mindkettő él
-        int i = -1;
+        boolean bothAlive = true; // mindkettő él
+        boolean isFirstRound = true; // első kör
+        double defaultAs = unit1.getAs();
+        double defaultAs2 = unit2.getAs();
         while (bothAlive) {
-            i++;
-            // Egyszerre megütik egymást 1. ütés!
-            if (i <= 0) {
+            // Ha első kör akkor egyszerre megütik egymást 1. ütés!
+            if (isFirstRound) {
+                isFirstRound = false;
                 unit1.attack(unit2);
                 unit2.attack(unit1);
                 System.out.println("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadták egymást. Életük: "
                         + name1 + " " + unit1.getHP() + ", " + name2 + " " + unit2.getHP());
             }
-            // Ha túlélték akkor ütnek amikor lejár az Attackspeed pl.: attackspeed = 1,
-            // akkor minden i-nél üthetünk (1i = 1mp)
-            if (i > 0 && i % as1 == 0) {
+            //Attack speed számolása, melyiké kisebb --> az üthet elősször
+            double lowestAs = Math.min(unit1.getAs(), unit2.getAs());
+            unit1.setAs(unit1.getAs()-lowestAs);
+            unit2.setAs(unit2.getAs()-lowestAs);
+            //Ütések
+            if (unit1.getAs() == 0) {
                 unit1.attack(unit2);
+                unit1.setAs(defaultAs);
                 System.out.println(name1 + " megtámadta " + name2 + ", így " + name2 + " élete - " + unit2.getHP());
             }
-            if (i > 0 && i % as2 == 0) {
+            if (unit2.getAs() == 0) {
                 unit2.attack(unit1);
+                unit2.setAs(defaultAs2);
                 System.out.println(name2 + " megtámadta " + name1 + ", így " + name1 + " élete - " + unit1.getHP());
             }
+            // Éltek még?
             if (unit1.isAlive() == false || unit2.isAlive() == false) {
                 bothAlive = false;
             }
         }
-        if (i <= 0)
+        // Első ütésnél meghalt e vagy nem...
+        if (isFirstRound)
             System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " EGY CSAPÁSSAL GYŐZÖTT"
                     : "\n" + unit2.getName().toUpperCase() + " EGY CSAPÁSSAL GYŐZÖTT!");
         else
