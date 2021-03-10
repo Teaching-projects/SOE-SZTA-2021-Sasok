@@ -51,22 +51,22 @@ public class Main {
                 unit1.attack(unit2);
                 unit2.attack(unit1);
                 System.out.println("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadták egymást. Életük: "
-                        + name1 + " " + unit1.getHP() + ", " + name2 + " " + unit2.getHP());
+                        + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp());
             }
-            //Attack speed számolása, melyiké kisebb --> az üthet elősször
+            // Attack speed számolása, melyiké kisebb --> az üthet elősször
             double lowestAs = Math.min(unit1.getAs(), unit2.getAs());
-            unit1.setAs(unit1.getAs()-lowestAs);
-            unit2.setAs(unit2.getAs()-lowestAs);
-            //Ütések
+            unit1.setAs(unit1.getAs() - lowestAs);
+            unit2.setAs(unit2.getAs() - lowestAs);
+            // Ütések
             if (unit1.getAs() == 0) {
                 unit1.attack(unit2);
                 unit1.setAs(defaultAs);
-                System.out.println(name1 + " megtámadta " + name2 + ", így " + name2 + " élete - " + unit2.getHP());
+                System.out.println(name1 + " megtámadta " + name2 + ", így " + name2 + " élete - " + unit2.getHp());
             }
             if (unit2.getAs() == 0) {
                 unit2.attack(unit1);
                 unit2.setAs(defaultAs2);
-                System.out.println(name2 + " megtámadta " + name1 + ", így " + name1 + " élete - " + unit1.getHP());
+                System.out.println(name2 + " megtámadta " + name1 + ", így " + name1 + " élete - " + unit1.getHp());
             }
             // Éltek még?
             if (unit1.isAlive() == false || unit2.isAlive() == false) {
