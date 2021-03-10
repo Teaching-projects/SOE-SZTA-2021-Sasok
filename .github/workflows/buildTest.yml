@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: javac *.java
       - run: |
-            for test in `ls tests/*.txt; do
+            for test in `ls tests/*.txt`; do
               java Main < $test > $test.gen
               diff $test.gen $test.out
             done
