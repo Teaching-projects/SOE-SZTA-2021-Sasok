@@ -12,7 +12,7 @@ public class Main {
 
         if (unit1Hp == 0 || unit2Hp == 0){
             System.out.println("\nA HP nem lehet 0!");
-            //System.exit(1);
+            System.exit(2);
         }
 
         // Két Unit létrehozása
@@ -33,7 +33,7 @@ public class Main {
             answer = sc.nextInt();
         else{
             System.out.println(sc.next() + "\nNem érvényes értéket adott meg, adjon meg egy számot! ");
-            //System.exit(1);
+            System.exit(2);
         }
 
         return answer;
@@ -42,7 +42,7 @@ public class Main {
     private static void battle(Unit unit1, Unit unit2) {
         if (unit1.getDMG() == 0 && unit2.getDMG() == 0){
             System.out.println("A csapatok visszavonultak, a harc dontetlennel vegzodott.");
-            //System.exit(1);
+            System.exit(2);
         }
 
         System.out.println(
