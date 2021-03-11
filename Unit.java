@@ -23,6 +23,10 @@ public class Unit {
         return this.name;
     }
 
+    public int getDMG(){
+        return this.dmg;
+    }
+
     public boolean isAlive() {
         return this.hp > 0;
     }
