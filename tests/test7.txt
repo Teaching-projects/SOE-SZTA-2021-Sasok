@@ -1,4 +1,2 @@
-258
-32
-256
-36
+Első egység HP-ja: a
+Nem érvényes értéket adott meg, adjon meg egy számot! 

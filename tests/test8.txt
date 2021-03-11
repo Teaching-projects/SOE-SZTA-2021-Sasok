@@ -1,4 +1,2 @@
-147
-15
-258
-11
+Első egység HP-ja: Első egység DMG-je: Második egység HP-ja: Második egység DMG-je: 
+A HP nem lehet 0!

@@ -1,4 +1,2 @@
-98
-6
-97
-5
+Első egység HP-ja: Első egység DMG-je: Második egység HP-ja: a
+Nem érvényes értéket adott meg, adjon meg egy számot! 
