@@ -14,6 +14,10 @@ public class Main {
             System.out.println("\nA HP nem lehet 0!");
             return;
         }
+        else if (unit1Hp == -1 || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1){
+            System.out.println(sc.next() + "\nNem érvényes értéket adott meg, adjon meg egy számot! ");
+            return;
+        }
 
         // Két Unit létrehozása
         Unit unit1 = new Unit("Warrior", unit1Dmg, unit1Hp);
@@ -29,14 +33,17 @@ public class Main {
         int answer = 0;
 
         System.out.print(msg);
-        if (sc.hasNextInt())
+        if (sc.hasNextInt()){
             answer = sc.nextInt();
+            return answer;
+        }
         else {
-            System.out.println(sc.next() + "\nNem érvényes értéket adott meg, adjon meg egy számot! ");
-            System.exit(5);
+            //Akkor tér vissza vele, ha pl. betű van megadva
+            answer = -1;
+            return answer;
         }
 
-        return answer;
+        
     }
 
     private static void battle(Unit unit1, Unit unit2) {
