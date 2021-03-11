@@ -31,8 +31,9 @@ public class Main {
         System.out.print(msg);
         if (sc.hasNextInt())
             answer = sc.nextInt();
-        else{
+        else {
             System.out.println(sc.next() + "\nNem érvényes értéket adott meg, adjon meg egy számot! ");
+            System.exit(5);
         }
 
         return answer;
