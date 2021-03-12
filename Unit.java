@@ -15,7 +15,6 @@ public class Unit {
         if (enemy.isAlive() && this.isAlive()) {
             enemy.hp -= this.dmg;
         }
-        setAs(as);
     }
 
     public boolean isAlive() {
