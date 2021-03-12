@@ -31,12 +31,12 @@ public class Main {
         battle(unit1, unit2);
     }
   
-    private static int readIn(Scanner sc, String msg) {
-        int answer = 0;
+    private static double readIn(Scanner sc, String msg) {
+        double answer = 0;
   
         System.out.print(msg);
-        if (sc.hasNextInt()){
-            answer = sc.nextInt();
+        if (sc.hasNextFloat()){
+            answer = sc.nextFloat();
             return answer;
         }
         else {
