@@ -12,6 +12,15 @@ public class Main {
         int unit2Dmg = (int) readIn(sc, "Második egység DMG-je: ");
         double unit2As = readIn(sc, "Második egység AS-je: ");
 
+        if (unit1Hp == 0 || unit2Hp == 0){
+            System.out.println("\nA HP nem lehet 0!");
+            return;
+        }
+        else if (unit1Hp == -1 || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1){
+            System.out.println(sc.next() + "\nNem érvényes értéket adott meg, adjon meg egy számot! ");
+            return;
+        }
+
         // Két Unit létrehozása
         Unit unit1 = new Unit("Harcos", unit1Dmg, unit1Hp, unit1As);
         Unit unit2 = new Unit("Sámán", unit2Dmg, unit2Hp, unit2As);
@@ -21,23 +30,27 @@ public class Main {
         // Csata elkezdése
         battle(unit1, unit2);
     }
-
-    private static double readIn(Scanner sc, String msg) {
-        boolean acceptable = true;
-        double answer = 0;
-        do {
-            System.out.print(msg);
-            if (sc.hasNextFloat()) {
-                answer = sc.nextFloat();
-                acceptable = false;
-            } else {
-                System.out.println(sc.next() + " nem érvényes értéket adott meg, adjon meg egy számot! ");
-            }
-        } while (acceptable);
-        return answer;
+  
+    private static int readIn(Scanner sc, String msg) {
+        int answer = 0;
+  
+        System.out.print(msg);
+        if (sc.hasNextInt()){
+            answer = sc.nextInt();
+            return answer;
+        }
+        else {
+            //Akkor tér vissza vele, ha pl. betű van megadva
+            answer = -1;
+            return answer;
+        }
     }
 
     private static void battle(Unit unit1, Unit unit2) {
+        if (unit1.getDMG() == 0 && unit2.getDMG() == 0){
+            System.out.println("A csapatok visszavonultak, a harc dontetlennel vegzodott.");
+            return;
+        }
         String name1 = unit1.getName();
         String name2 = unit2.getName();
         boolean bothAlive = true; // mindkettő él
@@ -78,7 +91,7 @@ public class Main {
             System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " EGY CSAPÁSSAL GYŐZÖTT"
                     : "\n" + unit2.getName().toUpperCase() + " EGY CSAPÁSSAL GYŐZÖTT!");
         else
-            System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " GYŐZEDELMESKEDETT!"
-                    : "\n" + unit2.getName().toUpperCase() + " GYŐZEDELMESKEDETT!");
+            System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " GYOZEDELMESKEDETT!"
+                : "\n" + unit2.getName().toUpperCase() + " GYOZEDELMESKEDETT!");
     }
 }

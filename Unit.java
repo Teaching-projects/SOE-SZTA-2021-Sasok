@@ -31,7 +31,7 @@ public class Unit {
         return this.name;
     }
 
-    public int getDmg() {
+    public int getDMG() {
         return this.dmg;
     }
 
