@@ -10,6 +10,15 @@ public class Main {
         int unit2Hp = readIn(sc, "Második egység HP-ja: ");
         int unit2Dmg = readIn(sc, "Második egység DMG-je: ");
 
+        if (unit1Hp == 0 || unit2Hp == 0){
+            System.out.println("\nA HP nem lehet 0!");
+            return;
+        }
+        else if (unit1Hp == -1 || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1){
+            System.out.println(sc.next() + "\nNem érvényes értéket adott meg, adjon meg egy számot! ");
+            return;
+        }
+
         // Két Unit létrehozása
         Unit unit1 = new Unit("Warrior", unit1Dmg, unit1Hp);
         Unit unit2 = new Unit("Shaman", unit2Dmg, unit2Hp);
@@ -21,21 +30,28 @@ public class Main {
     }
 
     private static int readIn(Scanner sc, String msg) {
-        boolean acceptable = true;
         int answer = 0;
-        do {
-            System.out.print(msg);
-            if (sc.hasNextInt()) {
-                answer = sc.nextInt();
-                acceptable = false;
-            } else {
-                System.out.println(sc.next() + " nem érvényes értéket adott meg, adjon meg egy számot! ");
-            }
-        } while (acceptable);
-        return answer;
+
+        System.out.print(msg);
+        if (sc.hasNextInt()){
+            answer = sc.nextInt();
+            return answer;
+        }
+        else {
+            //Akkor tér vissza vele, ha pl. betű van megadva
+            answer = -1;
+            return answer;
+        }
+
+        
     }
 
     private static void battle(Unit unit1, Unit unit2) {
+        if (unit1.getDMG() == 0 && unit2.getDMG() == 0){
+            System.out.println("A csapatok visszavonultak, a harc dontetlennel vegzodott.");
+            return;
+        }
+
         System.out.println(
                 "\nA Csata elkezdődött! " + unit1.getName() + " kezdheti a támadást " + unit2.getName() + (" ellen."));
         int i = 1;
@@ -52,7 +68,7 @@ public class Main {
                     + unit1.getHP() + " || " + unit2.getName() + " élete: " + unit2.getHP());
 
         }
-        System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " GYŐZEDELMESKEDETT!"
-                : "\n" + unit2.getName().toUpperCase() + " GYŐZEDELMESKEDETT!");
+        System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " GYOZEDELMESKEDETT!"
+                : "\n" + unit2.getName().toUpperCase() + " GYOZEDELMESKEDETT!");
     }
 }
