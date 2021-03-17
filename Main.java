@@ -12,12 +12,15 @@ public class Main {
         int unit2Dmg = (int) readIn(sc, "Második egység DMG-je: ");
         double unit2As = readIn(sc, "Második egység AS-je: ");
 
-        if (unit1Hp == 0 || unit2Hp == 0){
+        if (unit1Hp == 0 || unit2Hp == 0) {
             System.out.println("\nA HP nem lehet 0!");
             return;
-        }
-        else if (unit1Hp == -1 || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1){
+        } else if (unit1Hp == -1 || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1) {
             System.out.println(sc.next() + "\nNem érvényes értéket adott meg, adjon meg egy számot! ");
+            return;
+        }
+        if (unit1As <= 0 || unit2As <= 0) {
+            System.out.println("\nAz attack speed nem lehet egyenlő vagy kisebb mint 0!");
             return;
         }
 
@@ -30,27 +33,27 @@ public class Main {
         // Csata elkezdése
         battle(unit1, unit2);
     }
-  
+
     private static double readIn(Scanner sc, String msg) {
         double answer = 0;
-  
+
         System.out.print(msg);
-        if (sc.hasNextFloat()){
+        if (sc.hasNextFloat()) {
             answer = sc.nextFloat();
             return answer;
-        }
-        else {
-            //Akkor tér vissza vele, ha pl. betű van megadva
+        } else {
+            // Akkor tér vissza vele, ha pl. betű van megadva
             answer = -1;
             return answer;
         }
     }
 
     private static void battle(Unit unit1, Unit unit2) {
-        if (unit1.getDMG() == 0 && unit2.getDMG() == 0){
+        if (unit1.getDMG() == 0 && unit2.getDMG() == 0) {
             System.out.println("A csapatok visszavonultak, a harc dontetlennel vegzodott.");
             return;
         }
+
         String name1 = unit1.getName();
         String name2 = unit2.getName();
         boolean bothAlive = true; // mindkettő él
@@ -88,10 +91,10 @@ public class Main {
         }
         // Első ütésnél meghalt e vagy nem...
         if (isFirstRound)
-            System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " EGY CSAPÁSSAL GYŐZÖTT"
-                    : "\n" + unit2.getName().toUpperCase() + " EGY CSAPÁSSAL GYŐZÖTT!");
+            System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " EGY CSAPASSAL GYOZOTT"
+                    : "\n" + unit2.getName().toUpperCase() + " EGY CSAPASSAL GYOZOTT!");
         else
             System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " GYOZEDELMESKEDETT!"
-                : "\n" + unit2.getName().toUpperCase() + " GYOZEDELMESKEDETT!");
+                    : "\n" + unit2.getName().toUpperCase() + " GYOZEDELMESKEDETT!");
     }
 }
