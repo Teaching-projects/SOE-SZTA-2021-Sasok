@@ -91,10 +91,10 @@ public class Main {
         }
         // Első ütésnél meghalt e vagy nem...
         if (isFirstRound)
-            System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " EGY CSAPASSAL GYOZOTT"
-                    : "\n" + unit2.getName().toUpperCase() + " EGY CSAPASSAL GYOZOTT!");
+            System.out.println(unit1.isAlive() ? "\n" + unit1.getName() + " EGY CSAPASSAL GYOZOTT"
+                    : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT!");
         else
-            System.out.println(unit1.isAlive() ? "\n" + unit1.getName().toUpperCase() + " GYOZEDELMESKEDETT!"
-                    : "\n" + unit2.getName().toUpperCase() + " GYOZEDELMESKEDETT!");
+            System.out.println(unit1.isAlive() ? "\n" + unit1.getName() + " GYOZEDELMESKEDETT!"
+                    : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!");
     }
 }
