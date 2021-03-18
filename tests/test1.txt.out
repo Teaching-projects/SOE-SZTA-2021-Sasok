@@ -1,27 +1,26 @@
-Első egység HP-ja: Első egység DMG-je: Második egység HP-ja: Második egység DMG-je: 
-A Csata elkezdődött! Warrior kezdheti a támadást Shaman ellen.
-1. körben Warrior támad --- Warrior élete: 150 || Shaman élete: 155
-2. körben Shaman támad, ---Warrior élete: 137 || Shaman élete: 155
-2. körben Warrior támad --- Warrior élete: 137 || Shaman élete: 140
-3. körben Shaman támad, ---Warrior élete: 124 || Shaman élete: 140
-3. körben Warrior támad --- Warrior élete: 124 || Shaman élete: 125
-4. körben Shaman támad, ---Warrior élete: 111 || Shaman élete: 125
-4. körben Warrior támad --- Warrior élete: 111 || Shaman élete: 110
-5. körben Shaman támad, ---Warrior élete: 98 || Shaman élete: 110
-5. körben Warrior támad --- Warrior élete: 98 || Shaman élete: 95
-6. körben Shaman támad, ---Warrior élete: 85 || Shaman élete: 95
-6. körben Warrior támad --- Warrior élete: 85 || Shaman élete: 80
-7. körben Shaman támad, ---Warrior élete: 72 || Shaman élete: 80
-7. körben Warrior támad --- Warrior élete: 72 || Shaman élete: 65
-8. körben Shaman támad, ---Warrior élete: 59 || Shaman élete: 65
-8. körben Warrior támad --- Warrior élete: 59 || Shaman élete: 50
-9. körben Shaman támad, ---Warrior élete: 46 || Shaman élete: 50
-9. körben Warrior támad --- Warrior élete: 46 || Shaman élete: 35
-10. körben Shaman támad, ---Warrior élete: 33 || Shaman élete: 35
-10. körben Warrior támad --- Warrior élete: 33 || Shaman élete: 20
-11. körben Shaman támad, ---Warrior élete: 20 || Shaman élete: 20
-11. körben Warrior támad --- Warrior élete: 20 || Shaman élete: 5
-12. körben Shaman támad, ---Warrior élete: 7 || Shaman élete: 5
-12. körben Warrior támad --- Warrior élete: 7 || Shaman élete: -10
+Első egység HP-ja: Első egység DMG-je: Első egység AS-je: Második egység HP-ja: Második egység DMG-je: Második egység AS-je: 
+A Csata elkezdődött! Harcos és Sámán megtámadták egymást. Életük: Harcos 137, Sámán 155
+Harcos megtámadta Sámán, így Sámán élete - 140
+Sámán megtámadta Harcos, így Harcos élete - 124
+Harcos megtámadta Sámán, így Sámán élete - 125
+Sámán megtámadta Harcos, így Harcos élete - 111
+Harcos megtámadta Sámán, így Sámán élete - 110
+Sámán megtámadta Harcos, így Harcos élete - 98
+Harcos megtámadta Sámán, így Sámán élete - 95
+Sámán megtámadta Harcos, így Harcos élete - 85
+Harcos megtámadta Sámán, így Sámán élete - 80
+Sámán megtámadta Harcos, így Harcos élete - 72
+Harcos megtámadta Sámán, így Sámán élete - 65
+Sámán megtámadta Harcos, így Harcos élete - 59
+Harcos megtámadta Sámán, így Sámán élete - 50
+Sámán megtámadta Harcos, így Harcos élete - 46
+Harcos megtámadta Sámán, így Sámán élete - 35
+Sámán megtámadta Harcos, így Harcos élete - 33
+Harcos megtámadta Sámán, így Sámán élete - 20
+Sámán megtámadta Harcos, így Harcos élete - 20
+Harcos megtámadta Sámán, így Sámán élete - 5
+Sámán megtámadta Harcos, így Harcos élete - 7
+Harcos megtámadta Sámán, így Sámán élete - -10
+Sámán megtámadta Harcos, így Harcos élete - 7
 
-WARRIOR GYOZEDELMESKEDETT!
+Harcos GYOZEDELMESKEDETT!
