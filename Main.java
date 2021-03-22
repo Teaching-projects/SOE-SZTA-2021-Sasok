@@ -1,9 +1,50 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Main {
     public static void main(String args[]) {
         // Paraméterek bekérése Scanner-el
-        Scanner sc = new Scanner(System.in);
+        String first = "First.json";
+        String second = "Second.json";
+
+        String unit1jsonNAME = "";
+        int unit1jsonHP = 0;
+        int unit1jsonDMG = 0;
+        double unit1jsonAS = 0.0;
+        String unit2jsonNAME = "";
+        int unit2jsonHP = 0;
+        int unit2jsonDMG = 0;
+        double unit2jsonAS = 0.0;
+        try {
+            String contents = new String((Files.readAllBytes(Paths.get(first))));
+            JSONObject o = new JSONObject(contents);
+            unit1jsonNAME = o.getString("NAME");
+            unit1jsonHP = o.getInt("HP");
+            unit1jsonDMG = o.getInt("DMG");
+            unit1jsonAS = o.getInt("AS");
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        try {
+            String contents = new String((Files.readAllBytes(Paths.get(second))));
+            JSONObject o = new JSONObject(contents);
+            unit2jsonNAME = o.getString("NAME");
+            unit2jsonHP = o.getInt("HP");
+            unit2jsonDMG = o.getInt("DMG");
+            unit2jsonAS = o.getInt("AS");
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+        Unit unit1 = new Unit(unit1jsonNAME, unit1jsonDMG, unit1jsonHP, unit1jsonAS);
+        Unit unit2 = new Unit(unit2jsonNAME, unit2jsonDMG, unit2jsonHP, unit2jsonAS);
+        
+        
+        /*Scanner sc = new Scanner(System.in);
 
         int unit1Hp = (int) readIn(sc, "Első egység HP-ja: ");
         int unit1Dmg = (int) readIn(sc, "Első egység DMG-je: ");
@@ -28,7 +69,7 @@ public class Main {
         Unit unit1 = new Unit("Harcos", unit1Dmg, unit1Hp, unit1As);
         Unit unit2 = new Unit("Sámán", unit2Dmg, unit2Hp, unit2As);
 
-        sc.close();
+        sc.close();*/
 
         // Csata elkezdése
         battle(unit1, unit2);
@@ -66,7 +107,7 @@ public class Main {
                 isFirstRound = false;
                 unit1.attack(unit2);
                 unit2.attack(unit1);
-                System.out.println("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadták egymást. Életük: "
+                System.out.println("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadtak egymást. életük: "
                         + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp());
             }
             // Attack speed számolása, melyiké kisebb --> az üthet elősször
@@ -77,7 +118,7 @@ public class Main {
             if (unit1.getAs() == 0) {
                 unit1.attack(unit2);
                 unit1.setAs(defaultAs);
-                System.out.println(name1 + " megtámadta " + name2 + ", így " + name2 + " élete - " + unit2.getHp());
+                System.out.println(name1 + " megtamádta " + name2 + ", így " + name2 + " élete - " + unit2.getHp());
             }
             if (unit2.getAs() == 0) {
                 unit2.attack(unit1);
