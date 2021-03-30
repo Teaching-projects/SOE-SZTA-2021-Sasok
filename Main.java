@@ -9,16 +9,12 @@ import org.json.JSONObject;
 public class Main {
     public static void main(String args[]) {
         // Paraméterek bekérése Scanner-el
-        File tempFile = new File("First.json");
-        boolean exists = tempFile.exists();
-        File tempFile2 = new File("Second.json");
-        boolean exists2 = tempFile.exists();
         Unit unit1;
         Unit unit2;
         
-        if(exists && exists2){
-            String first = "First.json";
-            String second = "Second.json";
+        if(args.length==2){
+            String first = args[0];
+            String second = args[1];
 
             String unit1jsonNAME = "";
             int unit1jsonHP = 0;
