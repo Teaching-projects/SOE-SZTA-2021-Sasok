@@ -11,7 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2
-      - run: javac *.java
+      - run: |
+        mkdir lib/
+        cd lib/
+        wget https://search.maven.org/remotecontent?filepath=org/json/json/20210307/json-20210307.jar
+        cd ..
+      - run: javac -cp lib/json-20210307.jar *.java
       - run: |
             for test in `ls tests/*.txt`; do
               java Main < $test > $test.gen
