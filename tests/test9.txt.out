@@ -1,2 +1,14 @@
-Első egység HP-ja: Első egység DMG-je: Első egység AS-je: Második egység HP-ja: Második egység DMG-je: Második egység AS-je: 1.3
-Nem érvényes értéket adott meg, adjon meg egy számot! 
+Első egység HP-ja: Első egység DMG-je: Első egység AS-je: Második egység HP-ja: Második egység DMG-je: Második egység AS-je: 
+A Csata elkezdődött! Harcos és Sámán megtámadtak egymást. életük: Harcos 15, Sámán 11
+Sámán megtámadta Harcos, így Harcos élete - 15
+Harcos megtamádta Sámán, így Sámán élete - 8
+Sámán megtámadta Harcos, így Harcos élete - 15
+Harcos megtamádta Sámán, így Sámán élete - 5
+Sámán megtámadta Harcos, így Harcos élete - 15
+Sámán megtámadta Harcos, így Harcos élete - 15
+Harcos megtamádta Sámán, így Sámán élete - 2
+Sámán megtámadta Harcos, így Harcos élete - 15
+Harcos megtamádta Sámán, így Sámán élete - -1
+Sámán megtámadta Harcos, így Harcos élete - 15
+
+Harcos GYOZEDELMESKEDETT!
