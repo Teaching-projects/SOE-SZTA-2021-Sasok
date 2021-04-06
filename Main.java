@@ -117,7 +117,7 @@ public class Main {
             String unitjsonNAME = o.getString("NAME");
             int unitjsonHP = o.getInt("HP");
             int unitjsonDMG = o.getInt("DMG");
-            double unitjsonAS = o.getInt("AS");
+            double unitjsonAS = o.getDouble("AS");
             Unit unit = new Unit(unitjsonNAME, unitjsonDMG, unitjsonHP, unitjsonAS);
             return unit;
         }catch(IOException e){
