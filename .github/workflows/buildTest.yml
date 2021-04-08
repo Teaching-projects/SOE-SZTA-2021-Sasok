@@ -9,8 +9,7 @@ jobs:
       - run: |
           mkdir lib
           cd lib/
-          wget https://search.maven.org/remotecontent?filepath=org/json/json/20210307/json-20210307.jar
-          mv remotecontent?filepath=org%2Fjson%2Fjson%2F20210307%2Fjson-20210307.jar json.jar
+          wget -O json.jar https://search.maven.org/remotecontent?filepath=org/json/json/20210307/json-20210307.jar
           cd ..
       - run: javac -cp lib/json.jar *.java
       - run: |
