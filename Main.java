@@ -77,7 +77,7 @@ public class Main {
                 isFirstRound = false;
                 unit1.attack(unit2);
                 unit2.attack(unit1);
-                System.out.println("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadtak egymást. életük: "
+                System.out.println("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadták egymást. életük: "
                         + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp());
             }
             // Attack speed számolása, melyiké kisebb --> az üthet elősször
@@ -88,7 +88,7 @@ public class Main {
             if (unit1.getAs() == 0) {
                 unit1.attack(unit2);
                 unit1.setAs(defaultAs);
-                System.out.println(name1 + " megtamádta " + name2 + ", így " + name2 + " élete - " + unit2.getHp());
+                System.out.println(name1 + " megtámadta " + name2 + ", így " + name2 + " élete - " + unit2.getHp());
             }
             if (unit2.getAs() == 0) {
                 unit2.attack(unit1);
