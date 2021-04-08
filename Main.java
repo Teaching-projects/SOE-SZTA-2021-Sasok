@@ -1,37 +1,48 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Main {
     public static void main(String args[]) {
-        // Paraméterek bekérése Scanner-el
-        Scanner sc = new Scanner(System.in);
+        
+        if(args.length==2){
+            battle(JsonToUnit(args[0]), JsonToUnit(args[1]));
 
-        int unit1Hp = (int) readIn(sc, "Első egység HP-ja: ");
-        int unit1Dmg = (int) readIn(sc, "Első egység DMG-je: ");
-        double unit1As = readIn(sc, "Első egység AS-je: ");
-        int unit2Hp = (int) readIn(sc, "Második egység HP-ja: ");
-        int unit2Dmg = (int) readIn(sc, "Második egység DMG-je: ");
-        double unit2As = readIn(sc, "Második egység AS-je: ");
+        }else{
+            Scanner sc = new Scanner(System.in);
 
-        if (unit1Hp == 0 || unit2Hp == 0) {
-            System.out.println("\nA HP nem lehet 0!");
-            return;
-        } else if (unit1Hp == -1 || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1) {
-            System.out.println(sc.next() + "\nNem érvényes értéket adott meg, adjon meg egy számot! ");
-            return;
+            int unit1Hp = (int) readIn(sc, "Első egység HP-ja: ");
+            int unit1Dmg = (int) readIn(sc, "Első egység DMG-je: ");
+            double unit1As = readIn(sc, "Első egység AS-je: ");
+            int unit2Hp = (int) readIn(sc, "Második egység HP-ja: ");
+            int unit2Dmg = (int) readIn(sc, "Második egység DMG-je: ");
+            double unit2As = readIn(sc, "Második egység AS-je: ");
+
+            if (unit1Hp == 0 || unit2Hp == 0) {
+                System.out.println("\nA HP nem lehet 0!");
+                return;
+            } else if (unit1Hp == -1 || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1) {
+                System.out.println(sc.next() + "\nNem érvényes értéket adott meg, adjon meg egy számot! ");
+                return;
+            }
+            if (unit1As <= 0 || unit2As <= 0) {
+                System.out.println("\nAz attack speed nem lehet egyenlő vagy kisebb mint 0!");
+                return;
+            }
+
+            // Két Unit létrehozása
+            Unit unit1 = new Unit("Harcos", unit1Dmg, unit1Hp, unit1As);
+            Unit unit2 = new Unit("Sámán", unit2Dmg, unit2Hp, unit2As);
+
+            sc.close();
+            battle(unit1, unit2);
+
         }
-        if (unit1As <= 0 || unit2As <= 0) {
-            System.out.println("\nAz attack speed nem lehet egyenlő vagy kisebb mint 0!");
-            return;
-        }
-
-        // Két Unit létrehozása
-        Unit unit1 = new Unit("Harcos", unit1Dmg, unit1Hp, unit1As);
-        Unit unit2 = new Unit("Sámán", unit2Dmg, unit2Hp, unit2As);
-
-        sc.close();
-
-        // Csata elkezdése
-        battle(unit1, unit2);
+        
     }
 
     private static double readIn(Scanner sc, String msg) {
@@ -66,7 +77,7 @@ public class Main {
                 isFirstRound = false;
                 unit1.attack(unit2);
                 unit2.attack(unit1);
-                System.out.println("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadták egymást. Életük: "
+                System.out.println("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadták egymást. életük: "
                         + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp());
             }
             // Attack speed számolása, melyiké kisebb --> az üthet elősször
@@ -96,5 +107,22 @@ public class Main {
         else
             System.out.println(unit1.isAlive() ? "\n" + unit1.getName() + " GYOZEDELMESKEDETT!"
                     : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!");
+    }
+    public static Unit JsonToUnit(String arg){
+        String first = arg;
+
+        try {
+            String contents = new String((Files.readAllBytes(Paths.get(first))));
+            JSONObject o = new JSONObject(contents);
+            String unitjsonNAME = o.getString("NAME");
+            int unitjsonHP = o.getInt("HP");
+            int unitjsonDMG = o.getInt("DMG");
+            double unitjsonAS = o.getDouble("AS");
+            Unit unit = new Unit(unitjsonNAME, unitjsonDMG, unitjsonHP, unitjsonAS);
+            return unit;
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }
