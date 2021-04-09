@@ -1,6 +1,6 @@
 public class Unit {
     private final String name;
-    private final int dmg;
+    private int dmg;
     private int hp;
     private double as;
 
@@ -44,4 +44,13 @@ public class Unit {
     public void setAs(double as) {
         this.as = as;
     }
+
+    public void setHP(int hp){
+        this.hp=hp;
+    }
+
+    public void setDMG(int dmg){
+        this.dmg=dmg;
+    }
+
 }
