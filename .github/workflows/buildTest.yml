@@ -17,3 +17,14 @@ jobs:
               java Main < $test > $test.gen
               diff $test.gen $test.out
             done
+    JunitTest:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - run: |
+          cd lib/
+          wget -O junit.jar https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.1/junit-platform-console-standalone-1.7.1-all.jar
+          cd ..
+        - run: javac -cp "lib/*" *.java
+        - run: java -jar lib/junit.jar -cp "." -c JunitTest --reports-dir="reports/"
+
