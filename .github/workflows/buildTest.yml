@@ -22,6 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
+        mkdir lib
         cd lib/
         wget -O junit.jar https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.1/junit-platform-console-standalone-1.7.1-all.jar
         cd ..
