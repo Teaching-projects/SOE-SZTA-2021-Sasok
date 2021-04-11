@@ -167,7 +167,7 @@ public class Main {
                 isFirstRound = false;
                 unit1.attack(unit2);
                 unit2.attack(unit1);
-                harcJTextArea.append("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadták egymást. életük: "
+                harcJTextArea.append("\nA Csata elkezdodott! " + name1 + " es " + name2 + " megtamadtak egymast. eletük: "
                         + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp() + "\n");
             }
             // Attack speed számolása, melyiké kisebb --> az üthet elősször
@@ -178,12 +178,12 @@ public class Main {
             if (unit1.getAs() == 0) {
                 unit1.attack(unit2);
                 unit1.setAs(defaultAs);
-                harcJTextArea.append(name1 + " megtámadta " + name2 + ", így " + name2 + " élete - " + unit2.getHp() + "\n");
+                harcJTextArea.append(name1 + " megtamadta " + name2 + ", igy " + name2 + " elete - " + unit2.getHp() + "\n");
             }
             if (unit2.getAs() == 0) {
                 unit2.attack(unit1);
                 unit2.setAs(defaultAs2);
-                harcJTextArea.append(name2 + " megtámadta " + name1 + ", így " + name1 + " élete - " + unit1.getHp() + "\n");
+                harcJTextArea.append(name2 + " megtamadta " + name1 + ", igy " + name1 + " elete - " + unit1.getHp() + "\n");
             }
             // Éltek még?
             if (unit1.isAlive() == false || unit2.isAlive() == false) {
