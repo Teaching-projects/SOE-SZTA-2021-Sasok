@@ -17,7 +17,6 @@ public class Main {
     private static JLabel harcosJLabel, samanJLabel;
     private static JTextArea harcJTextArea;
     private static JButton harcosJButton, samanJButton, startJButton;
-    private static JTextField eredmenyJTextField;
     private static JFileChooser fc;
     private static File harcosFile, samanFile;
     
@@ -60,17 +59,8 @@ public class Main {
         JScrollPane scroll = new JScrollPane (harcJTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         centerJPanel.add(scroll);
 
-        southJPanel = new JPanel();
-        southJPanel.setLayout(new FlowLayout());
-        eredmenyJTextField = new JTextField("");
-        eredmenyJTextField.setEditable(false);
-        eredmenyJTextField.setVisible(false);
-        southJPanel.add(eredmenyJTextField);
-
         c.add(northJPanel, BorderLayout.NORTH );
         c.add(centerJPanel, BorderLayout.CENTER );
-        c.add(southJPanel, BorderLayout.SOUTH );
-
 
         fc = new JFileChooser();
         harcosJButton.addActionListener(e ->
@@ -88,10 +78,9 @@ public class Main {
         });
         startJButton.addActionListener(e ->
         {
-
             battle(JsonToUnit(harcosFile.getName()), JsonToUnit(samanFile.getName()));
             
-            JOptionPane.showMessageDialog( null, "Csata elkezdődött!");
+            JOptionPane.showMessageDialog( null, "Csata elkezdodott!");
         });
 
         frame.pack();
@@ -162,7 +151,7 @@ public class Main {
     private static void battle(Unit unit1, Unit unit2) {
         if (unit1.getDMG() == 0 && unit2.getDMG() == 0) {
             //System.out.println("A csapatok visszavonultak, a harc dontetlennel vegzodott.");
-           eredmenyJTextField.setText("A csapatok visszavonultak, a harc dontetlennel vegzodott.");
+            harcJTextArea.append("A csapatok visszavonultak, a harc dontetlennel vegzodott.\n");
             return;
         }
 
@@ -178,8 +167,8 @@ public class Main {
                 isFirstRound = false;
                 unit1.attack(unit2);
                 unit2.attack(unit1);
-                eredmenyJTextField.setText("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadták egymást. életük: "
-                        + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp());
+                harcJTextArea.append("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadták egymást. életük: "
+                        + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp() + "\n");
             }
             // Attack speed számolása, melyiké kisebb --> az üthet elősször
             double lowestAs = Math.min(unit1.getAs(), unit2.getAs());
@@ -189,12 +178,12 @@ public class Main {
             if (unit1.getAs() == 0) {
                 unit1.attack(unit2);
                 unit1.setAs(defaultAs);
-                eredmenyJTextField.setText(name1 + " megtámadta " + name2 + ", így " + name2 + " élete - " + unit2.getHp());
+                harcJTextArea.append(name1 + " megtámadta " + name2 + ", így " + name2 + " élete - " + unit2.getHp() + "\n");
             }
             if (unit2.getAs() == 0) {
                 unit2.attack(unit1);
                 unit2.setAs(defaultAs2);
-                eredmenyJTextField.setText(name2 + " megtámadta " + name1 + ", így " + name1 + " élete - " + unit1.getHp());
+                harcJTextArea.append(name2 + " megtámadta " + name1 + ", így " + name1 + " élete - " + unit1.getHp() + "\n");
             }
             // Éltek még?
             if (unit1.isAlive() == false || unit2.isAlive() == false) {
@@ -203,11 +192,11 @@ public class Main {
         }
         // Első ütésnél meghalt e vagy nem...
         if (isFirstRound)
-                eredmenyJTextField.setText(unit1.isAlive() ? "\n" + unit1.getName() + " EGY CSAPASSAL GYOZOTT"
-                    : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT!");
+                harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " EGY CSAPASSAL GYOZOTT"
+                    : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
         else
-                eredmenyJTextField.setText(unit1.isAlive() ? "\n" + unit1.getName() + " GYOZEDELMESKEDETT!"
-                    : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!");
+                harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " GYOZEDELMESKEDETT!"
+                    : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
     }
     public static Unit JsonToUnit(String arg){
         String first = arg;
