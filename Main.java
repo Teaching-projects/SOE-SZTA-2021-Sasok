@@ -8,11 +8,11 @@ import org.json.JSONObject;
 
 public class Main {
     public static void main(String args[]) {
-        
-        if(args.length==2){
+
+        if (args.length == 2) {
             battle(JsonToUnit(args[0]), JsonToUnit(args[1]));
 
-        }else{
+        } else {
             Scanner sc = new Scanner(System.in);
 
             int unit1Hp = (int) readIn(sc, "Első egység HP-ja: ");
@@ -42,7 +42,7 @@ public class Main {
             battle(unit1, unit2);
 
         }
-        
+
     }
 
     private static double readIn(Scanner sc, String msg) {
@@ -59,7 +59,7 @@ public class Main {
         }
     }
 
-    private static void battle(Unit unit1, Unit unit2) {
+    protected static void battle(Unit unit1, Unit unit2) {
         if (unit1.getDMG() == 0 && unit2.getDMG() == 0) {
             System.out.println("A csapatok visszavonultak, a harc dontetlennel vegzodott.");
             return;
@@ -108,7 +108,8 @@ public class Main {
             System.out.println(unit1.isAlive() ? "\n" + unit1.getName() + " GYOZEDELMESKEDETT!"
                     : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!");
     }
-    public static Unit JsonToUnit(String arg){
+
+    public static Unit JsonToUnit(String arg) {
         String first = arg;
 
         try {
@@ -120,7 +121,7 @@ public class Main {
             double unitjsonAS = o.getDouble("AS");
             Unit unit = new Unit(unitjsonNAME, unitjsonDMG, unitjsonHP, unitjsonAS);
             return unit;
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
