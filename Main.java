@@ -29,12 +29,16 @@ public class Main {
             if (unit1Hp == 0 || unit2Hp == 0) {
                 System.out.println("\nA HP nem lehet 0!");
                 return;
-            } else if (unit1Hp == -1 || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1) {
+            } else if (unit1Hp == -1 || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1 || playerdmgpl == -1 || playerhppl == -1 || playerxp == -1) {
                 System.out.println(sc.next() + "\nNem érvényes értéket adott meg, adjon meg egy számot! ");
                 return;
             }
-            if (unit1As <= 0 || unit2As <= 0) {
+            if (unit1As <= 0 || unit2As <= 0 || playeraspl <= 0) {
                 System.out.println("\nAz attack speed nem lehet egyenlő vagy kisebb mint 0!");
+                return;
+            }
+            if (playerxp ==0){
+                System.out.println("\nA szinlépéshez szükséges XP nem lehet 0!");
                 return;
             }
 
