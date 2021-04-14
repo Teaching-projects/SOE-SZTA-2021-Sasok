@@ -1,0 +1,34 @@
+Player HP-ja: Player DMG-je: Player AS-je: Player DMG növekedése: Player HP növekedése: Player AS szorzoja: Player Szintlépéshez szükséges xp mennyisége: Második egység HP-ja: Második egység DMG-je: Második egység AS-je: 
+A Csata elkezdődött! Harcos és Sámán megtámadták egymást. életük: Harcos 146, Sámán 137
+Harcos megtámadta Sámán, így Sámán élete - 134
+Sámán megtámadta Harcos, így Harcos élete - 142
+Harcos megtámadta Sámán, így Sámán élete - 131
+Harcos a(z)2. szintre lépett
+Harcos megtámadta Sámán, így Sámán élete - 128
+Sámán megtámadta Harcos, így Harcos élete - 143
+Harcos megtámadta Sámán, így Sámán élete - 122
+Sámán megtámadta Harcos, így Harcos élete - 139
+Harcos a(z)3. szintre lépett
+Harcos megtámadta Sámán, így Sámán élete - 116
+Harcos megtámadta Sámán, így Sámán élete - 107
+Sámán megtámadta Harcos, így Harcos élete - 140
+Harcos a(z)4. szintre lépett
+Harcos megtámadta Sámán, így Sámán élete - 98
+Sámán megtámadta Harcos, így Harcos élete - 141
+Harcos a(z)5. szintre lépett
+Harcos megtámadta Sámán, így Sámán élete - 86
+Harcos a(z)6. szintre lépett
+Harcos megtámadta Sámán, így Sámán élete - 71
+Sámán megtámadta Harcos, így Harcos élete - 147
+Harcos a(z)7. szintre lépett
+Harcos megtámadta Sámán, így Sámán élete - 53
+Sámán megtámadta Harcos, így Harcos élete - 148
+Harcos a(z)8. szintre lépett
+Harcos megtámadta Sámán, így Sámán élete - 32
+Harcos a(z)9. szintre lépett
+Harcos megtámadta Sámán, így Sámán élete - 8
+Sámán megtámadta Harcos, így Harcos élete - 154
+Harcos a(z)10. szintre lépett
+Harcos megtámadta Sámán, így Sámán élete - -19
+
+Harcos GYOZEDELMESKEDETT!

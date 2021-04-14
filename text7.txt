@@ -1,0 +1,2 @@
+Player HP-ja: Player DMG-je: Player AS-je: Player DMG növekedése: Player HP növekedése: Player AS szorzoja: Player Szintlépéshez szükséges xp mennyisége: Második egység HP-ja: Második egység DMG-je: Második egység AS-je: 
+A HP nem lehet 0!
