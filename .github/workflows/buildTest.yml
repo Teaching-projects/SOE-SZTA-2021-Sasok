@@ -24,7 +24,8 @@ jobs:
       - run: |
           mkdir lib
           cd lib/
-          wget -O json.jar https://search.maven.org/remotecontent?filepath=org/json/json/20210307/json-20210307.jar -O junit.jar https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.1/junit-platform-console-standalone-1.7.1-all.jar 
+          wget -O json.jar https://search.maven.org/remotecontent?filepath=org/json/json/20210307/json-20210307.jar 
+          wget -O junit.jar https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.1/junit-platform-console-standalone-1.7.1-all.jar 
           cd ..
       - run: javac -cp "lib/*" *.java
       - run: java -jar lib/junit.jar -cp "." -c JunitTest --reports-dir="reports/"
