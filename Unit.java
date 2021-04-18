@@ -41,7 +41,7 @@ public class Unit {
 
     // Setters
 
-    public void setAs(double as) {
+    protected void setAs(double as) {
         this.as = as;
     }
 
@@ -49,7 +49,7 @@ public class Unit {
         this.hp=hp;
     }
 
-    public void setDMG(int dmg){
+    protected void setDMG(int dmg){
         this.dmg=dmg;
     }
 

@@ -1,8 +1,8 @@
 public class Player extends Unit{
-    private int xp_per_level;
-    private int dmg_increase_per_level;
-    private int hp_increase_per_level;
-    private float cooldown_multiplier_per_level;
+    private final int xp_per_level;
+    private final int dmg_increase_per_level;
+    private final int hp_increase_per_level;
+    private final float cooldown_multiplier_per_level;
     private int xp;
     private int lvl;
 
@@ -17,8 +17,10 @@ public class Player extends Unit{
     }
 
     public void attack(Unit enemy) {
-        super.attack(enemy);
-        this.xp = this.xp+super.getDMG();
+        if (enemy.isAlive() && this.isAlive()) {
+            enemy.setHP(enemy.getHp()-this.getDMG());
+        }
+        this.xp = this.xp+this.getDMG();
         this.lvlup();
     }
 
@@ -27,12 +29,12 @@ public class Player extends Unit{
     }
 
     public void lvlup(){
-        if(this.xp>this.xp_per_level){
-            this.xp=0;
-            super.setHP(super.getHp()+hp_increase_per_level);
-            super.setDMG(super.getDMG()+dmg_increase_per_level);
-            super.setAs(super.getAs()*cooldown_multiplier_per_level);
-            this.lvl=this.lvl+1;
+        while(this.xp>this.xp_per_level){
+            this.xp=this.xp-this.xp_per_level;
+            setHP(getHp()+hp_increase_per_level);
+            setDMG(getDMG()+dmg_increase_per_level);
+            setAs(getAs()*cooldown_multiplier_per_level);
+            this.lvl++;
             System.out.println(super.getName()+" a(z)"+this.getLvl()+". szintre lépett");
         }
     }
