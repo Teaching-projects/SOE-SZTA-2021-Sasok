@@ -17,11 +17,15 @@ public class Player extends Unit{
     }
 
     public void attack(Unit enemy) {
-        if (enemy.isAlive() && this.isAlive()) {
-            enemy.setHP(enemy.getHp()-this.getDMG());
+        if(enemy.hp<this.dmg){
+            this.xp += enemy.hp;
+            super.attack(enemy);
+            this.lvlup();
+        } else {
+            super.attack(enemy);
+            this.xp +=this.getDMG();
+            this.lvlup();
         }
-        this.xp = this.xp+this.getDMG();
-        this.lvlup();
     }
 
     public boolean isAlive() {
@@ -29,11 +33,11 @@ public class Player extends Unit{
     }
 
     public void lvlup(){
-        while(this.xp>this.xp_per_level){
-            this.xp=this.xp-this.xp_per_level;
-            setHP(getHp()+hp_increase_per_level);
-            setDMG(getDMG()+dmg_increase_per_level);
-            setAs(getAs()*cooldown_multiplier_per_level);
+        while(this.xp>=this.xp_per_level){
+            this.xp-=this.xp_per_level;
+            this.hp+=this.hp_increase_per_level;
+            this.dmg+=this.dmg_increase_per_level;
+            this.as*=cooldown_multiplier_per_level;
             this.lvl++;
             System.out.println(super.getName()+" a(z)"+this.getLvl()+". szintre lépett");
         }

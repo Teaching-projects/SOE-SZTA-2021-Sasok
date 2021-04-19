@@ -1,8 +1,8 @@
 public class Unit {
     private final String name;
-    private int dmg;
-    private int hp;
-    private double as;
+    protected int dmg;
+    protected int hp;
+    protected double as;
 
     public Unit(String name, int dmg, int hp, double as) {
         this.name = name;
@@ -45,7 +45,7 @@ public class Unit {
         this.as = as;
     }
 
-    public void setHP(int hp){
+    protected void setHP(int hp){
         this.hp=hp;
     }
 
