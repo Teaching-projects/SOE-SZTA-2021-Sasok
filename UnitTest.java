@@ -12,17 +12,17 @@ public class UnitTest {
     @DisplayName("Test with constructor")
     void test1() {
         unit1 = new Unit("harcos", 15, 100, 1.5);
-        Assertions.assertEquals(unit1.getName(), "harcos", "Wrong name");
-        Assertions.assertEquals(unit1.getDMG(), 15, "Dmg is wrong");
-        Assertions.assertEquals(unit1.getHp(), 100, "Hp is wrong");
-        Assertions.assertEquals(unit1.getAs(), 1.5, "Attack speed is wrong");
+        Assertions.assertEquals("harcos", unit1.getName(), "Wrong name");
+        Assertions.assertEquals(15, unit1.getDMG(), "Dmg is wrong");
+        Assertions.assertEquals(100, unit1.getHp(), "Hp is wrong");
+        Assertions.assertEquals(1.5, unit1.getAs(), "Attack speed is wrong");
     }
 
     @Test
     @DisplayName("Test with hp")
     void test2() {
-        unit1 = new Unit("harcos", 15, 100, 1.5);
-        Assertions.assertTrue(unit1.getHp() > 0, "hp can not be 0");
+        unit1 = new Unit("harcos", 15, 0, 1.5);
+        Assertions.assertEquals(0, unit1.getHp(), "Hp should be 0");
     }
 
     @Test
@@ -49,7 +49,7 @@ public class UnitTest {
         unit1 = new Unit("harcos", 15, 100, 0);
         unit2 = new Unit("saman", 80, 100, 0);
         unit2.attack(unit1);
-        Assertions.assertEquals(unit1.getHp(), 20, "Attack function is wrong");
+        Assertions.assertEquals(20, unit1.getHp(), "Attack function is wrong");
     }
 
     @Test
@@ -78,7 +78,7 @@ public class UnitTest {
         unit1 = new Unit("harcos", 101, 100, 0);
         unit2 = new Unit("saman", 49, 100, 0);
         unit1.attack(unit2);
-        Assertions.assertEquals(unit2.getHp(), -1, "Unit1 should be alive");
+        Assertions.assertEquals(-1, unit2.getHp(), "Unit1 should be alive");
     }
 
     @Test
@@ -88,7 +88,7 @@ public class UnitTest {
         unit2 = new Unit("saman", 49, 100, 0);
         for (int i = 1; i < 100; i++) {
             unit1.attack(unit2);
-            Assertions.assertEquals(unit2.getHp(), 100 - i, "Unit1.hp value should be something else");
+            Assertions.assertEquals(100 - i, unit2.getHp(), "Unit1.hp value should be something else");
         }
     }
 
@@ -156,5 +156,43 @@ public class UnitTest {
         unit2 = new Unit("saman", attackAndHealth, 100, 2);
         unit2.attack(unit1);
         Assertions.assertEquals(unit1.getHp(), 0, "Something wrong with attack function");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+            27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50 })
+    @DisplayName("Parameterized Test for constructor function")
+    void test16(int hp) {
+        unit1 = new Unit("harcos", 10, hp, 1);
+        Assertions.assertEquals(hp, unit1.getHp(), "Something wrong with hp in constructor");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+            27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50 })
+    @DisplayName("Parameterized Test for constructor function")
+    void test17(int dmg) {
+        unit1 = new Unit("harcos", dmg, 100, 1);
+        Assertions.assertEquals(dmg, unit1.getDMG(), "Something wrong with dmg in constructor");
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
+            26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50 })
+    @DisplayName("Parameterized Test for constructor function")
+    void test18(double as) {
+        unit1 = new Unit("harcos", 10, 100, as);
+        Assertions.assertEquals(as, unit1.getAs(), "Something wrong with as in constructor");
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = { 1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.10, 11.1, 12.12, 13.13, 14.14, 15.15,
+            16.16, 17.17, 18.18, 19.19, 20.20, 21.21, 22.22, 23.23, 24.24, 25.25, 26.26, 27.27, 28.28, 29.29, 30.30,
+            31.31, 32.32, 33.33, 34.34, 35.36, 36.36, 37.37, 38.38, 39.39, 40.40, 41.41, 42.42, 43.43, 44.44, 45.45,
+            46.46, 47.47, 48.48, 49.49, 50.50 })
+    @DisplayName("Parameterized Test for constructor function")
+    void test19(double as) {
+        unit1 = new Unit("harcos", 10, 100, as);
+        Assertions.assertEquals(as, unit1.getAs(), "Something wrong with as in constructor");
     }
 }
