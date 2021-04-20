@@ -6,10 +6,96 @@ import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class Main {
-    public static void main(String args[]) {
-        
-        if(args.length==2){
+
+    private static JPanel northJPanel, centerJPanel, southJPanel;
+    private static JLabel harcosJLabel, samanJLabel;
+    private static JTextArea harcJTextArea;
+    private static JButton harcosJButton, samanJButton, startJButton;
+    private static JFileChooser fc;
+    private static File harcosFile, samanFile;
+    
+    private static void createAndShowGUI() {
+        try{
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
+                if ("Nimbus".equals(info.getName())){
+                    UIManager.setLookAndFeel( info.getClassName() );
+                    break;
+                }
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+        JFrame frame = new JFrame("Csata");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setBounds( 20, 20, 1000, 800 );
+        Container c = frame.getContentPane();
+        c.setLayout( new BorderLayout() );
+
+        northJPanel = new JPanel();
+        northJPanel.setLayout(new FlowLayout());
+        harcosJLabel = new JLabel("Valassza ki a Harcos JSON fajljat");
+        harcosJButton = new JButton("Fajl kivalasztasa");
+        samanJLabel = new JLabel("Valassza ki a Saman JSON fajljat");
+        samanJButton = new JButton("Fajl kivalasztasa");
+        startJButton = new JButton("Csata kezdete");
+        northJPanel.add(harcosJLabel);
+        northJPanel.add(harcosJButton);
+        northJPanel.add(samanJLabel);
+        northJPanel.add(samanJButton);
+        northJPanel.add(startJButton);
+
+        centerJPanel = new JPanel();
+        centerJPanel.setLayout(new FlowLayout());
+        harcJTextArea = new JTextArea(40, 50);
+        harcJTextArea.setEditable(false);
+        JScrollPane scroll = new JScrollPane (harcJTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        centerJPanel.add(scroll);
+
+        c.add(northJPanel, BorderLayout.NORTH );
+        c.add(centerJPanel, BorderLayout.CENTER );
+
+        fc = new JFileChooser();
+        harcosJButton.addActionListener(e ->
+        {
+            fc.showOpenDialog(frame);
+            harcosFile = fc.getSelectedFile();
+            //JOptionPane.showMessageDialog( null, harcosFile.getName());
+            harcosJButton.setEnabled(false);
+        });
+        samanJButton.addActionListener(e ->
+        {
+            fc.showOpenDialog(frame);
+            samanFile = fc.getSelectedFile();
+            samanJButton.setEnabled(false);
+        });
+        startJButton.addActionListener(e ->
+        {
+            battle(JsonToUnit(harcosFile.getName()), JsonToUnit(samanFile.getName()));
+            
+            JOptionPane.showMessageDialog( null, "Csata elkezdodott!");
+        });
+
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+
+        /*if(args.length==2){
             battle(JsonToUnit(args[0]), JsonToUnit(args[1]));
 
         }else{
@@ -41,9 +127,12 @@ public class Main {
             sc.close();
             battle(unit1, unit2);
 
-        }
+        }*/
         
     }
+
+
+    ////////////////////////////////////////////////////////////
 
     private static double readIn(Scanner sc, String msg) {
         double answer = 0;
@@ -61,7 +150,8 @@ public class Main {
 
     private static void battle(Unit unit1, Unit unit2) {
         if (unit1.getDMG() == 0 && unit2.getDMG() == 0) {
-            System.out.println("A csapatok visszavonultak, a harc dontetlennel vegzodott.");
+            //System.out.println("A csapatok visszavonultak, a harc dontetlennel vegzodott.");
+            harcJTextArea.append("A csapatok visszavonultak, a harc dontetlennel vegzodott.\n");
             return;
         }
 
@@ -77,8 +167,8 @@ public class Main {
                 isFirstRound = false;
                 unit1.attack(unit2);
                 unit2.attack(unit1);
-                System.out.println("\nA Csata elkezdődött! " + name1 + " és " + name2 + " megtámadták egymást. életük: "
-                        + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp());
+                harcJTextArea.append("\nA Csata elkezdodott! " + name1 + " es " + name2 + " megtamadtak egymast. eletük: "
+                        + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp() + "\n");
             }
             // Attack speed számolása, melyiké kisebb --> az üthet elősször
             double lowestAs = Math.min(unit1.getAs(), unit2.getAs());
@@ -88,12 +178,12 @@ public class Main {
             if (unit1.getAs() == 0) {
                 unit1.attack(unit2);
                 unit1.setAs(defaultAs);
-                System.out.println(name1 + " megtámadta " + name2 + ", így " + name2 + " élete - " + unit2.getHp());
+                harcJTextArea.append(name1 + " megtamadta " + name2 + ", igy " + name2 + " elete - " + unit2.getHp() + "\n");
             }
             if (unit2.getAs() == 0) {
                 unit2.attack(unit1);
                 unit2.setAs(defaultAs2);
-                System.out.println(name2 + " megtámadta " + name1 + ", így " + name1 + " élete - " + unit1.getHp());
+                harcJTextArea.append(name2 + " megtamadta " + name1 + ", igy " + name1 + " elete - " + unit1.getHp() + "\n");
             }
             // Éltek még?
             if (unit1.isAlive() == false || unit2.isAlive() == false) {
@@ -102,11 +192,11 @@ public class Main {
         }
         // Első ütésnél meghalt e vagy nem...
         if (isFirstRound)
-            System.out.println(unit1.isAlive() ? "\n" + unit1.getName() + " EGY CSAPASSAL GYOZOTT"
-                    : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT!");
+                harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " EGY CSAPASSAL GYOZOTT"
+                    : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
         else
-            System.out.println(unit1.isAlive() ? "\n" + unit1.getName() + " GYOZEDELMESKEDETT!"
-                    : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!");
+                harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " GYOZEDELMESKEDETT!"
+                    : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
     }
     public static Unit JsonToUnit(String arg){
         String first = arg;

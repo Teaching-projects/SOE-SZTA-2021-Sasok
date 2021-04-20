@@ -1,8 +1,8 @@
-name: "Teszt"
+name: "Alap build teszt"
 
 on: push
 jobs: 
-  IO_Test:
+  Build_Project:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2
@@ -12,8 +12,3 @@ jobs:
           wget -O json.jar https://search.maven.org/remotecontent?filepath=org/json/json/20210307/json-20210307.jar
           cd ..
       - run: javac -cp lib/json.jar *.java
-      - run: |
-            for test in `ls tests/*.txt`; do
-              java Main < $test > $test.gen
-              diff $test.gen $test.out
-            done
