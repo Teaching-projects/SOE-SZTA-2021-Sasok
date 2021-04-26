@@ -5,6 +5,7 @@ public class Player extends Unit{
     private final float cooldown_multiplier_per_level;
     private int xp;
     private int lvl;
+    private int maxHP;
 
     public Player( String name, int dmg, int hp, double as, int xppl, int dmgipl, int hpipl, float cmpl) {
         super(name,dmg,hp,as);
@@ -14,18 +15,13 @@ public class Player extends Unit{
         this.cooldown_multiplier_per_level=cmpl;
         this.xp=0;
         this.lvl=1;
+        this.maxHP=hp;
     }
 
-    public void attack(Unit enemy) {
-        if(enemy.hp<this.dmg){
-            this.xp += enemy.hp;
-            super.attack(enemy);
-            this.lvlup();
-        } else {
-            super.attack(enemy);
-            this.xp +=this.getDMG();
-            this.lvlup();
-        }
+    public int attack(Unit enemy) {
+        this.xp+=super.attack(enemy);
+        this.lvlup();
+        return 0;
     }
 
     public boolean isAlive() {
@@ -35,7 +31,7 @@ public class Player extends Unit{
     public void lvlup(){
         while(this.xp>=this.xp_per_level){
             this.xp-=this.xp_per_level;
-            this.hp+=this.hp_increase_per_level;
+            this.hp=this.maxHP+this.hp_increase_per_level;
             this.dmg+=this.dmg_increase_per_level;
             this.as*=cooldown_multiplier_per_level;
             this.lvl++;
