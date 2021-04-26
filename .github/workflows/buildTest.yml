@@ -1,8 +1,8 @@
-name: "Teszt"
+name: "Alap build teszt"
 
 on: push
 jobs:
-  JunitTest:
+  Build_Project:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
