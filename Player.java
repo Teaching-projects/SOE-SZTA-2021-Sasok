@@ -31,7 +31,8 @@ public class Player extends Unit{
     public void lvlup(){
         while(this.xp>=this.xp_per_level){
             this.xp-=this.xp_per_level;
-            this.hp=this.maxHP+this.hp_increase_per_level;
+            this.maxHP+=this.hp_increase_per_level;
+            this.hp=this.maxHP;
             this.dmg+=this.dmg_increase_per_level;
             this.as*=cooldown_multiplier_per_level;
             this.lvl++;
