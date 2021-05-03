@@ -78,7 +78,7 @@ public class UnitTest {
         unit1 = new Unit("harcos", 101, 100, 0);
         unit2 = new Unit("saman", 49, 100, 0);
         unit1.attack(unit2);
-        Assertions.assertEquals(-1, unit2.getHp(), "Unit1 should be alive");
+        Assertions.assertEquals(0, unit2.getHp(), "Unit1 should not be alive");
     }
 
     @Test
