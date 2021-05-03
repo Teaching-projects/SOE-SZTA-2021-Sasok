@@ -1,8 +1,8 @@
 public class Unit {
     private final String name;
-    private final int dmg;
-    private int hp;
-    private double as;
+    protected int dmg;
+    protected int hp;
+    protected double as;
 
     public Unit(String name, int dmg, int hp, double as) {
         this.name = name;
@@ -11,10 +11,18 @@ public class Unit {
         this.as = as;
     }
 
-    public void attack(Unit enemy) {
+    public int attack(Unit enemy) {
         if (enemy.isAlive() && this.isAlive()) {
-            enemy.hp -= this.dmg;
+            if(enemy.hp<this.dmg){
+                int xp = enemy.hp;
+                enemy.hp=0;
+                return xp;
+            } else {
+                enemy.hp-=this.dmg;
+                return this.dmg;
+            }
         }
+        return 0;
     }
 
     public boolean isAlive() {
@@ -41,7 +49,16 @@ public class Unit {
 
     // Setters
 
-    public void setAs(double as) {
+    protected void setAs(double as) {
         this.as = as;
     }
+
+    protected void setHP(int hp){
+        this.hp=hp;
+    }
+
+    protected void setDMG(int dmg){
+        this.dmg=dmg;
+    }
+
 }
