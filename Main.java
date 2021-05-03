@@ -19,25 +19,25 @@ public class Main {
     private static JButton harcosJButton, samanJButton, startJButton;
     private static JFileChooser fc;
     private static File harcosFile, samanFile;
-    
+
     private static void createAndShowGUI() {
-        try{
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()){
-                if ("Nimbus".equals(info.getName())){
-                    UIManager.setLookAndFeel( info.getClassName() );
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
         JFrame frame = new JFrame("Csata");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.setBounds( 20, 20, 1000, 800 );
+        frame.setBounds(20, 20, 1000, 800);
         Container c = frame.getContentPane();
-        c.setLayout( new BorderLayout() );
+        c.setLayout(new BorderLayout());
 
         northJPanel = new JPanel();
         northJPanel.setLayout(new FlowLayout());
@@ -56,31 +56,29 @@ public class Main {
         centerJPanel.setLayout(new FlowLayout());
         harcJTextArea = new JTextArea(40, 50);
         harcJTextArea.setEditable(false);
-        JScrollPane scroll = new JScrollPane (harcJTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JScrollPane scroll = new JScrollPane(harcJTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         centerJPanel.add(scroll);
 
-        c.add(northJPanel, BorderLayout.NORTH );
-        c.add(centerJPanel, BorderLayout.CENTER );
+        c.add(northJPanel, BorderLayout.NORTH);
+        c.add(centerJPanel, BorderLayout.CENTER);
 
         fc = new JFileChooser();
-        harcosJButton.addActionListener(e ->
-        {
+        harcosJButton.addActionListener(e -> {
             fc.showOpenDialog(frame);
             harcosFile = fc.getSelectedFile();
-            //JOptionPane.showMessageDialog( null, harcosFile.getName());
+            // JOptionPane.showMessageDialog( null, harcosFile.getName());
             harcosJButton.setEnabled(false);
         });
-        samanJButton.addActionListener(e ->
-        {
+        samanJButton.addActionListener(e -> {
             fc.showOpenDialog(frame);
             samanFile = fc.getSelectedFile();
             samanJButton.setEnabled(false);
         });
-        startJButton.addActionListener(e ->
-        {
+        startJButton.addActionListener(e -> {
             battle(JsonToUnit(harcosFile.getName()), JsonToUnit(samanFile.getName()));
-            
-            JOptionPane.showMessageDialog( null, "Csata elkezdodott!");
+
+            JOptionPane.showMessageDialog(null, "Csata elkezdodott!");
         });
 
         frame.pack();
@@ -95,42 +93,36 @@ public class Main {
             }
         });
 
-        /*if(args.length==2){
-            battle(JsonToUnit(args[0]), JsonToUnit(args[1]));
+        /*
+         * if(args.length==2){ battle(JsonToUnit(args[0]), JsonToUnit(args[1]));
+         * 
+         * } else { Scanner sc = new Scanner(System.in);
+         * 
+         * int unit1Hp = (int) readIn(sc, "Első egység HP-ja: "); int unit1Dmg = (int)
+         * readIn(sc, "Első egység DMG-je: "); double unit1As = readIn(sc,
+         * "Első egység AS-je: "); int unit2Hp = (int) readIn(sc,
+         * "Második egység HP-ja: "); int unit2Dmg = (int) readIn(sc,
+         * "Második egység DMG-je: "); double unit2As = readIn(sc,
+         * "Második egység AS-je: ");
+         * 
+         * if (unit1Hp == 0 || unit2Hp == 0) {
+         * System.out.println("\nA HP nem lehet 0!"); return; } else if (unit1Hp == -1
+         * || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1) {
+         * System.out.println(sc.next() +
+         * "\nNem érvényes értéket adott meg, adjon meg egy számot! "); return; } if
+         * (unit1As <= 0 || unit2As <= 0) {
+         * System.out.println("\nAz attack speed nem lehet egyenlő vagy kisebb mint 0!"
+         * ); return; }
+         * 
+         * // Két Unit létrehozása Unit unit1 = new Unit("Harcos", unit1Dmg, unit1Hp,
+         * unit1As); Unit unit2 = new Unit("Sámán", unit2Dmg, unit2Hp, unit2As);
+         * 
+         * sc.close(); battle(unit1, unit2);
+         * 
+         * }
+         */
 
-        } else {
-            Scanner sc = new Scanner(System.in);
-
-            int unit1Hp = (int) readIn(sc, "Első egység HP-ja: ");
-            int unit1Dmg = (int) readIn(sc, "Első egység DMG-je: ");
-            double unit1As = readIn(sc, "Első egység AS-je: ");
-            int unit2Hp = (int) readIn(sc, "Második egység HP-ja: ");
-            int unit2Dmg = (int) readIn(sc, "Második egység DMG-je: ");
-            double unit2As = readIn(sc, "Második egység AS-je: ");
-
-            if (unit1Hp == 0 || unit2Hp == 0) {
-                System.out.println("\nA HP nem lehet 0!");
-                return;
-            } else if (unit1Hp == -1 || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1) {
-                System.out.println(sc.next() + "\nNem érvényes értéket adott meg, adjon meg egy számot! ");
-                return;
-            }
-            if (unit1As <= 0 || unit2As <= 0) {
-                System.out.println("\nAz attack speed nem lehet egyenlő vagy kisebb mint 0!");
-                return;
-            }
-
-            // Két Unit létrehozása
-            Unit unit1 = new Unit("Harcos", unit1Dmg, unit1Hp, unit1As);
-            Unit unit2 = new Unit("Sámán", unit2Dmg, unit2Hp, unit2As);
-
-            sc.close();
-            battle(unit1, unit2);
-
-        }*/
-        
     }
-
 
     ////////////////////////////////////////////////////////////
 
@@ -150,8 +142,10 @@ public class Main {
 
     protected static void battle(Unit unit1, Unit unit2) {
         if (unit1.getDMG() == 0 && unit2.getDMG() == 0) {
-            //System.out.println("A csapatok visszavonultak, a harc dontetlennel vegzodott.");
-            harcJTextArea.append("A csapatok visszavonultak, a harc dontetlennel vegzodott.\n");
+            // System.out.println("A csapatok visszavonultak, a harc dontetlennel
+            // vegzodott.");
+            // harcJTextArea.append("A csapatok visszavonultak, a harc dontetlennel
+            // vegzodott.\n");
             return;
         }
 
@@ -167,8 +161,9 @@ public class Main {
                 isFirstRound = false;
                 unit1.attack(unit2);
                 unit2.attack(unit1);
-                harcJTextArea.append("\nA Csata elkezdodott! " + name1 + " es " + name2 + " megtamadtak egymast. eletük: "
-                        + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp() + "\n");
+                // harcJTextArea.append("\nA Csata elkezdodott! " + name1 + " es " + name2 + "
+                // megtamadtak egymast. eletük: "
+                // + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp() + "\n");
             }
             // Attack speed számolása, melyiké kisebb --> az üthet elősször
             double lowestAs = Math.min(unit1.getAs(), unit2.getAs());
@@ -178,12 +173,14 @@ public class Main {
             if (unit1.getAs() == 0) {
                 unit1.attack(unit2);
                 unit1.setAs(defaultAs);
-                harcJTextArea.append(name1 + " megtamadta " + name2 + ", igy " + name2 + " elete - " + unit2.getHp() + "\n");
+                // harcJTextArea.append(name1 + " megtamadta " + name2 + ", igy " + name2 + "
+                // elete - " + unit2.getHp() + "\n");
             }
             if (unit2.getAs() == 0) {
                 unit2.attack(unit1);
                 unit2.setAs(defaultAs2);
-                harcJTextArea.append(name2 + " megtamadta " + name1 + ", igy " + name1 + " elete - " + unit1.getHp() + "\n");
+                // harcJTextArea.append(name2 + " megtamadta " + name1 + ", igy " + name1 + "
+                // elete - " + unit1.getHp() + "\n");
             }
             // Éltek még?
             if (unit1.isAlive() == false || unit2.isAlive() == false) {
@@ -191,12 +188,14 @@ public class Main {
             }
         }
         // Első ütésnél meghalt e vagy nem...
-        if (isFirstRound)
-                harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " EGY CSAPASSAL GYOZOTT"
-                    : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
-        else
-                harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " GYOZEDELMESKEDETT!"
-                    : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
+        // if (isFirstRound)
+        // harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " EGY
+        // CSAPASSAL GYOZOTT"
+        // : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
+        // else
+        // harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + "
+        // GYOZEDELMESKEDETT!"
+        // : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
     }
 
     public static Unit JsonToUnit(String arg) {

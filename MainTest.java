@@ -5,8 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Assertions;
 
 public class MainTest {
-    private Unit unit1;
-    private Unit unit2;
+    private static Unit unit1;
+    private static Unit unit2;
 
     @Test
     @DisplayName("Test for battle function")
