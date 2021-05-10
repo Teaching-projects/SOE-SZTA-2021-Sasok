@@ -54,7 +54,7 @@ public class Main {
 
         centerJPanel = new JPanel();
         centerJPanel.setLayout(new FlowLayout());
-        harcJTextArea = new JTextArea(40, 50);
+        harcJTextArea = new JTextArea(30, 40);
         harcJTextArea.setEditable(false);
         JScrollPane scroll = new JScrollPane(harcJTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -150,8 +150,7 @@ public class Main {
         if (unit1.getDMG() == 0 && unit2.getDMG() == 0) {
             // System.out.println("A csapatok visszavonultak, a harc dontetlennel
             // vegzodott.");
-            // harcJTextArea.append("A csapatok visszavonultak, a harc dontetlennel
-            // vegzodott.\n");
+             harcJTextArea.append("A csapatok visszavonultak, a harc dontetlennel vegzodott.\n");
 
             return;
         }
@@ -168,9 +167,9 @@ public class Main {
                 isFirstRound = false;
                 unit1.attack(unit2);
                 unit2.attack(unit1);
-                // harcJTextArea.append("\nA Csata elkezdodott! " + name1 + " es " + name2 + "
-                // megtamadtak egymast. eletük: "
-                // + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp() + "\n");
+                 harcJTextArea.append("\nA Csata elkezdodott! " + name1 + " es " + name2 +
+                         " megtamadtak egymast. eletük: " + name1 + " " + unit1.getHp() +
+                         ", " + name2 + " " + unit2.getHp() + "\n");
 
             }
             // Attack speed számolása, melyiké kisebb --> az üthet elősször
@@ -181,15 +180,15 @@ public class Main {
             if (unit1.getAs() == 0) {
                 unit1.attack(unit2);
                 unit1.setAs(defaultAs);
-                // harcJTextArea.append(name1 + " megtamadta " + name2 + ", igy " + name2 + "
-                // elete - " + unit2.getHp() + "\n");
+                 harcJTextArea.append(name1 + " megtamadta " + name2 + ", igy " +
+                         name2 + " elete - " + unit2.getHp() + "\n");
 
             }
             if (unit2.getAs() == 0) {
                 unit2.attack(unit1);
                 unit2.setAs(defaultAs2);
-                // harcJTextArea.append(name2 + " megtamadta " + name1 + ", igy " + name1 + "
-                // elete - " + unit1.getHp() + "\n");
+                 harcJTextArea.append(name2 + " megtamadta " + name1 + ", igy " +
+                         name1 + " elete - " + unit1.getHp() + "\n");
 
             }
             // Éltek még?
@@ -197,15 +196,13 @@ public class Main {
                 bothAlive = false;
             }
         }
-        // Első ütésnél meghalt e vagy nem...
-        // if (isFirstRound)
-        // harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " EGY
-        // CSAPASSAL GYOZOTT"
-        // : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
-        // else
-        // harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + "
-        // GYOZEDELMESKEDETT!"
-        // : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
+//         Első ütésnél meghalt e vagy nem...
+         if (isFirstRound)
+         harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " EGY CSAPASSAL GYOZOTT"
+         : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
+         else
+         harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " GYOZEDELMESKEDETT!"
+         : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
 
     }
 
