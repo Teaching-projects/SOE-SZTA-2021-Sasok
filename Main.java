@@ -198,11 +198,11 @@ public class Main {
         }
 //         Első ütésnél meghalt e vagy nem...
          if (isFirstRound)
-         harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " EGY CSAPASSAL GYOZOTT"
-         : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
+         harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() +
+                 " EGY CSAPASSAL GYOZOTT" : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
          else
-         harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " GYOZEDELMESKEDETT!"
-         : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
+         harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() +
+                 " GYOZEDELMESKEDETT!" : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
 
     }
 
