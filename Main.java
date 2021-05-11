@@ -147,10 +147,11 @@ public class Main {
     }
 
     protected static void battle(Unit unit1, Unit unit2) {
+        harcJTextArea = new JTextArea(30,40);
         if (unit1.getDMG() == 0 && unit2.getDMG() == 0) {
             // System.out.println("A csapatok visszavonultak, a harc dontetlennel
             // vegzodott.");
-             harcJTextArea.append("A csapatok visszavonultak, a harc dontetlennel vegzodott.\n");
+            harcJTextArea.append("A csapatok visszavonultak, a harc dontetlennel vegzodott.\n");
 
             return;
         }
