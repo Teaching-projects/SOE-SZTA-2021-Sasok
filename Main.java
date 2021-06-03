@@ -113,14 +113,26 @@ public class Main {
         fc = new JFileChooser();
         harcosJButton.addActionListener(e -> {
             fc.showOpenDialog(frame);
-            harcosFile = fc.getSelectedFile();
-            // JOptionPane.showMessageDialog( null, harcosFile.getName());
-            harcosJButton.setEnabled(false);
+            try{
+                harcosFile = fc.getSelectedFile();
+                if (harcosFile.length()>0){
+                    harcosJButton.setEnabled(false);
+                }
+            }catch (NullPointerException ex){
+                ex.printStackTrace();
+            }
         });
         samanJButton.addActionListener(e -> {
             fc.showOpenDialog(frame);
-            samanFile = fc.getSelectedFile();
-            samanJButton.setEnabled(false);
+            try{
+                samanFile = fc.getSelectedFile();
+                if (samanFile.length()>0){
+                    samanJButton.setEnabled(false);
+                }
+            }catch (NullPointerException ex){
+                ex.printStackTrace();
+            }
+
         });
         startJButton.addActionListener(e -> {
             battle(JsonToPlayer(harcosFile.getName()), JsonToUnit(samanFile.getName()));
