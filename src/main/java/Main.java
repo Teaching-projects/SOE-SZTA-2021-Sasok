@@ -1,30 +1,32 @@
 import org.json.JSONObject;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.FieldPosition;
 import java.util.Scanner;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class Main {
+public class Main extends JPanel{
 
     private static JPanel northJPanel, centerJPanel, southJPanel;
     private static JLabel harcosJLabel, levelJLabel;
     private static JTextArea harcJTextArea;
     private static JButton harcosJButton, samanJButton, startJButton;
     private static JFileChooser fc;
-    private static File harcosFile, samanFile;
+    private static File harcosFile = new File("Player2.json"), samanFile;
     private static TextField t1;
     private static int level;
 
     public static void main(String[] args) {
         harcJTextArea = new JTextArea(30, 40);
+
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -81,27 +83,15 @@ public class Main {
 
         fc = new JFileChooser();
         harcosJButton.addActionListener(e -> {
-            fc.showOpenDialog(frame);
-            try{
+            int result = fc.showSaveDialog(frame);
+            if(result == JFileChooser.APPROVE_OPTION){
                 harcosFile = fc.getSelectedFile();
-                if (harcosFile.length()>0){
-                    harcosJButton.setEnabled(false);
-                }
-            }catch (NullPointerException ex){
-                ex.printStackTrace();
+            }
+            else{
+                harcosFile = new File("Player.json");
             }
         });
-        /*samanJButton.addActionListener(e -> {
-            fc.showOpenDialog(frame);
-            try{
-                samanFile = fc.getSelectedFile();
-                if (samanFile.length()>0){
-                    samanJButton.setEnabled(false);
-                }
-            }catch (NullPointerException ex){
-                ex.printStackTrace();
-            }
-        });*/
+
         startJButton.addActionListener(e -> {
             battle(JsonToPlayer(harcosFile.getName()), JsonToUnit(Integer.parseInt(t1.getText())));
         });
@@ -192,6 +182,11 @@ public class Main {
              harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() +
                      " GYOZEDELMESKEDETT!" : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
          }
+         if(unit1.getHp()<=0){
+             JOptionPane.showMessageDialog(null,"Sajnos hősünk elveszett","Csata",JOptionPane.INFORMATION_MESSAGE);
+         }
+         else JOptionPane.showMessageDialog(null,"Hősünk győzedelmeskedett","Csata",JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     public static Unit JsonToUnit(int szörnyszint) {
@@ -217,6 +212,34 @@ public class Main {
             JOptionPane.showMessageDialog(null,"Nincs ilyen magas vagy alacsony szint","Warning",JOptionPane.WARNING_MESSAGE);
         }
         return null;
+    }
+
+    private static void readMap(){
+        String [][] map = new String [6][6];
+
+        try (BufferedReader br = new BufferedReader(new FileReader("map.txt"))) {
+            String line;
+            String[] a;
+            int i = 0;
+            while ((line = br.readLine()) != null){
+                //System.out.println(line);
+                a = line.split(",");
+                for (int j = 0; j < 6; j++){
+                    map[i][j] = a[j];
+                }
+                i++;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        //Ellenőrzés, hogy jól olvasta-e be
+        for (int i = 0; i < 6; i++){
+            for(int j = 0; j < 6; j++){
+                System.out.print(map[i][j] + ' ');
+            }
+            System.out.println();
+        }
     }
 
     public static Player JsonToPlayer(String arg) {
