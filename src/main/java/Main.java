@@ -184,74 +184,72 @@ public class Main extends JPanel implements ActionListener {
         }
     }
     protected static void battle(Player unit1, Unit unit2) {
-        if (unit1.getDMG() == 0 && unit2.getDMG() == 0) {
-            // System.out.println("A csapatok visszavonultak, a harc dontetlennel
-            // vegzodott.");
-            harcJTextArea.append("A csapatok visszavonultak, a harc dontetlennel vegzodott.\n");
+        if(harcJTextArea!=null) {
+            if (unit1.getDMG() == 0 && unit2.getDMG() == 0) {
+                // System.out.println("A csapatok visszavonultak, a harc dontetlennel
+                // vegzodott.");
+                harcJTextArea.append("A csapatok visszavonultak, a harc dontetlennel vegzodott.\n");
 
-            return;
-        }
-        String name1 = unit1.getName();
-        String name2 = unit2.getName();
-        boolean bothAlive = true; // mindkettő él
-        boolean isFirstRound = true; // első kör
-        double defaultAs = unit1.getAs();
-        double defaultAs2 = unit2.getAs();
-        int playerLvl = unit1.getLvl();
-        while (bothAlive) {
+                return;
+            }
+            String name1 = unit1.getName();
+            String name2 = unit2.getName();
+            boolean bothAlive = true; // mindkettő él
+            boolean isFirstRound = true; // első kör
+            double defaultAs = unit1.getAs();
+            double defaultAs2 = unit2.getAs();
+            int playerLvl = unit1.getLvl();
+            while (bothAlive) {
 
-            // Ha első kör akkor egyszerre megütik egymást 1. ütés!
-            if (isFirstRound) {
-                isFirstRound = false;
-                unit1.attack(unit2);
-                unit2.attack(unit1);
-                if(harcJTextArea != null ) {
+                // Ha első kör akkor egyszerre megütik egymást 1. ütés!
+                if (isFirstRound) {
+                    isFirstRound = false;
+                    unit1.attack(unit2);
+                    unit2.attack(unit1);
                     harcJTextArea.append("\nA Csata elkezdodott! " + name1 + " es " + name2 +
                             " megtamadtak egymast. eletük: " + name1 + " " + unit1.getHp() +
                             ", " + name2 + " " + unit2.getHp() + "\n");
+
                 }
-            }
-            // Attack speed számolása, melyiké kisebb --> az üthet elősször
-            double lowestAs = Math.min(unit1.getAs(), unit2.getAs());
-            unit1.setAs(unit1.getAs() - lowestAs);
-            unit2.setAs(unit2.getAs() - lowestAs);
-            // Ütések
-            if (unit1.getAs() == 0) {
-                unit1.attack(unit2);
-                unit1.setAs(defaultAs);
-                 harcJTextArea.append(name1 + " megtamadta " + name2 + ", igy " +
-                         name2 + " elete - " + unit2.getHp() + "\n");
-                if(unit1.getLvl() != playerLvl) {
-                    harcJTextArea.append(unit1.getName() + " a(z)" + unit1.getLvl() + ". szintre lépett. Ezzel elete "+ (unit1.getHp() - unit1.getHp_increase_per_level()) +  " => " + unit1.getHp() + " sebzese "+ (unit1.getDMG()-unit1.getDmg_increase_per_level())+"=>"+unit1.getDMG() +"\n");
-                    playerLvl ++;
+                // Attack speed számolása, melyiké kisebb --> az üthet elősször
+                double lowestAs = Math.min(unit1.getAs(), unit2.getAs());
+                unit1.setAs(unit1.getAs() - lowestAs);
+                unit2.setAs(unit2.getAs() - lowestAs);
+                // Ütések
+                if (unit1.getAs() == 0) {
+                    unit1.attack(unit2);
+                    unit1.setAs(defaultAs);
+                    harcJTextArea.append(name1 + " megtamadta " + name2 + ", igy " +
+                            name2 + " elete - " + unit2.getHp() + "\n");
+
+                    if (unit1.getLvl() != playerLvl) {
+                        harcJTextArea.append(unit1.getName() + " a(z)" + unit1.getLvl() + ". szintre lépett. Ezzel elete " + (unit1.getHp() - unit1.getHp_increase_per_level()) + " => " + unit1.getHp() + " sebzese " + (unit1.getDMG() - unit1.getDmg_increase_per_level()) + "=>" + unit1.getDMG() + "\n");
+                        playerLvl++;
+                    }
                 }
-            }
-            if (unit2.getAs() == 0) {
-                unit2.attack(unit1);
-                unit2.setAs(defaultAs2);
-                if(harcJTextArea != null ) {
+                if (unit2.getAs() == 0) {
+                    unit2.attack(unit1);
+                    unit2.setAs(defaultAs2);
                     harcJTextArea.append(name2 + " megtamadta " + name1 + ", igy " +
                             name1 + " elete - " + unit1.getHp() + "\n");
                 }
+                // Éltek még?
+                if (unit1.isAlive() == false || unit2.isAlive() == false) {
+                    bothAlive = false;
+                }
             }
-            // Éltek még?
-            if (unit1.isAlive() == false || unit2.isAlive() == false) {
-                bothAlive = false;
-            }
-        }
 //         Első ütésnél meghalt e vagy nem...
-         if (isFirstRound)
-         harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() +
-                 " EGY CSAPASSAL GYOZOTT" : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
-         else
-         if(harcJTextArea != null ) {
-             harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() +
-                     " GYOZEDELMESKEDETT!" : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
-         }
-         if(unit1.getHp()<=0){
-             JOptionPane.showMessageDialog(null,"Sajnos hősünk elveszett","Csata",JOptionPane.INFORMATION_MESSAGE);
-         }
-         else JOptionPane.showMessageDialog(null,"Hősünk győzedelmeskedett","Csata",JOptionPane.INFORMATION_MESSAGE);
+            if (isFirstRound)
+                harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() +
+                        " EGY CSAPASSAL GYOZOTT" : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
+            else
+                harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() +
+                        " GYOZEDELMESKEDETT!" : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
+            if (unit1.getHp() <= 0) {
+                JOptionPane.showMessageDialog(null, "Sajnos hősünk elveszett", "Csata", JOptionPane.INFORMATION_MESSAGE);
+            } else
+                JOptionPane.showMessageDialog(null, "Hősünk győzedelmeskedett", "Csata", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     public static Unit JsonToUnit(int szörnyszint) {
