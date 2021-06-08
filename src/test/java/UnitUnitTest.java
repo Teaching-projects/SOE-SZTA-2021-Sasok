@@ -4,7 +4,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Assertions;
 
-public class UnitTest {
+public class UnitUnitTest {
     private static Unit unit1;
     private static Unit unit2;
 
