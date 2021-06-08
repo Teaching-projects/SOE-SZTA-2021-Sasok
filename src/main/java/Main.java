@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.FieldPosition;
 import java.util.Scanner;
 
 import javax.swing.*;
@@ -14,11 +15,13 @@ import java.awt.event.ActionListener;
 public class Main {
 
     private static JPanel northJPanel, centerJPanel, southJPanel;
-    private static JLabel harcosJLabel, samanJLabel;
+    private static JLabel harcosJLabel, levelJLabel;
     private static JTextArea harcJTextArea;
     private static JButton harcosJButton, samanJButton, startJButton;
     private static JFileChooser fc;
     private static File harcosFile, samanFile;
+    private static TextField t1;
+    private static int level;
 
     public static void main(String[] args) {
         harcJTextArea = new JTextArea(30, 40);
@@ -28,44 +31,7 @@ public class Main {
                 createAndShowGUI();
             }
         });
-
-        /*
-         * if(args.length==2){ battle(JsonToUnit(args[0]), JsonToUnit(args[1]));
-         *
-         * }else{ Scanner sc = new Scanner(System.in);
-         *
-         * int unit1Hp = (int) readIn(sc, "Player HP-ja: "); int unit1Dmg = (int)
-         * readIn(sc, "Player DMG-je: "); double unit1As = readIn(sc, "Player AS-je: ");
-         * int playerdmgpl = (int) readIn(sc, "Player DMG növekedése: "); int playerhppl
-         * = (int) readIn(sc, "Player HP növekedése: "); float playeraspl = (int)
-         * readIn(sc, "Player AS szorzoja: "); int playerxp = (int) readIn(sc,
-         * "Player Szintlépéshez szükséges xp mennyisége: "); int unit2Hp = (int)
-         * readIn(sc, "Második egység HP-ja: "); int unit2Dmg = (int) readIn(sc,
-         * "Második egység DMG-je: "); double unit2As = readIn(sc,
-         * "Második egység AS-je: ");
-         *
-         * if (unit1Hp == 0 || unit2Hp == 0) {
-         * System.out.println("\nA HP nem lehet 0!"); return; } else if (unit1Hp == -1
-         * || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1 || playerdmgpl == -1 ||
-         * playerhppl == -1 || playerxp == -1) { System.out.println(sc.next() +
-         * "\nNem érvényes értéket adott meg, adjon meg egy számot! "); return; } if
-         * (unit1As <= 0 || unit2As <= 0 || playeraspl <= 0) {
-         * System.out.println("\nAz attack speed nem lehet egyenlő vagy kisebb mint 0!"
-         * ); return; } if (playerxp ==0){
-         * System.out.println("\nA szinlépéshez szükséges XP nem lehet 0!"); return; }
-         *
-         * // Két Unit létrehozása Player player1 = new Player("Harcos", unit1Dmg,
-         * unit1Hp, unit1As,playerxp,playerdmgpl,playerhppl,playeraspl); Unit unit2 =
-         * new Unit("Sámán", unit2Dmg, unit2Hp, unit2As);
-         *
-         * sc.close(); battle(player1, unit2);
-         *
-         * }
-         */
-
     }
-
-
     //METÓDUSOK
     private static void createAndShowGUI() {
         try {
@@ -90,14 +56,17 @@ public class Main {
         northJPanel.setLayout(new FlowLayout());
         harcosJLabel = new JLabel("Valassza ki a Harcos JSON fajljat");
         harcosJButton = new JButton("Fajl kivalasztasa");
-        samanJLabel = new JLabel("Valassza ki a Saman JSON fajljat");
-        samanJButton = new JButton("Fajl kivalasztasa");
+        levelJLabel = new JLabel("Valassza ki a nehézségi szintet(1-3)");
+        //samanJButton = new JButton("Fajl kivalasztasa");
         startJButton = new JButton("Csata kezdete");
+        t1=new TextField();
         northJPanel.add(harcosJLabel);
         northJPanel.add(harcosJButton);
-        northJPanel.add(samanJLabel);
-        northJPanel.add(samanJButton);
+        northJPanel.add(levelJLabel);
+        //northJPanel.add(samanJButton);
+        northJPanel.add(t1);
         northJPanel.add(startJButton);
+
 
         centerJPanel = new JPanel();
         centerJPanel.setLayout(new FlowLayout());
@@ -122,7 +91,7 @@ public class Main {
                 ex.printStackTrace();
             }
         });
-        samanJButton.addActionListener(e -> {
+        /*samanJButton.addActionListener(e -> {
             fc.showOpenDialog(frame);
             try{
                 samanFile = fc.getSelectedFile();
@@ -132,10 +101,9 @@ public class Main {
             }catch (NullPointerException ex){
                 ex.printStackTrace();
             }
-
-        });
+        });*/
         startJButton.addActionListener(e -> {
-            battle(JsonToPlayer(harcosFile.getName()), JsonToUnit(samanFile.getName()));
+            battle(JsonToPlayer(harcosFile.getName()), JsonToUnit(Integer.parseInt(t1.getText())));
         });
 
         frame.pack();
@@ -198,7 +166,7 @@ public class Main {
                  harcJTextArea.append(name1 + " megtamadta " + name2 + ", igy " +
                          name2 + " elete - " + unit2.getHp() + "\n");
                 if(unit1.getLvl() != playerLvl) {
-                    harcJTextArea.append(unit1.getName() + " a(z)" + unit1.getLvl() + ". szintre lépett\n");
+                    harcJTextArea.append(unit1.getName() + " a(z)" + unit1.getLvl() + ". szintre lépett. Ezzel elete "+ (unit1.getHp() - unit1.getHp_increase_per_level()) +  " => " + unit1.getHp() + " sebzese "+ (unit1.getDMG()-unit1.getDmg_increase_per_level())+"=>"+unit1.getDMG() +"\n");
                     playerLvl ++;
                 }
             }
@@ -226,10 +194,16 @@ public class Main {
          }
     }
 
-    public static Unit JsonToUnit(String arg) {
-        String first = arg;
+    public static Unit JsonToUnit(int szörnyszint) {
+        File firstjson = new File("szörnyek/szörny1.json");
+        File secondjson = new File("szörnyek/szörny2.json");
+        File thirdjson = new File("szörnyek/szörny3.json");
+        String first = firstjson.toString();
+        String second = secondjson.toString();
+        String third = thirdjson.toString();
+        String[] szörnyek = {first,second,third};
         try {
-            String contents = new String((Files.readAllBytes(Paths.get(first))));
+            String contents = new String((Files.readAllBytes(Paths.get(szörnyek[szörnyszint-1]))));
             JSONObject o = new JSONObject(contents);
             String unitjsonNAME = o.getString("NAME");
             int unitjsonHP = o.getInt("HP");
@@ -239,6 +213,8 @@ public class Main {
             return unit;
         } catch (IOException e) {
             e.printStackTrace();
+        }catch(IndexOutOfBoundsException ex){
+            JOptionPane.showMessageDialog(null,"Nincs ilyen magas vagy alacsony szint","Warning",JOptionPane.WARNING_MESSAGE);
         }
         return null;
     }
