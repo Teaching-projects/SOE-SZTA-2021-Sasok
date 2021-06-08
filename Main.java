@@ -20,6 +20,53 @@ public class Main {
     private static JFileChooser fc;
     private static File harcosFile, samanFile;
 
+    public static void main(String[] args) {
+        harcJTextArea = new JTextArea(30, 40);
+
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+
+        /*
+         * if(args.length==2){ battle(JsonToUnit(args[0]), JsonToUnit(args[1]));
+         *
+         * }else{ Scanner sc = new Scanner(System.in);
+         *
+         * int unit1Hp = (int) readIn(sc, "Player HP-ja: "); int unit1Dmg = (int)
+         * readIn(sc, "Player DMG-je: "); double unit1As = readIn(sc, "Player AS-je: ");
+         * int playerdmgpl = (int) readIn(sc, "Player DMG növekedése: "); int playerhppl
+         * = (int) readIn(sc, "Player HP növekedése: "); float playeraspl = (int)
+         * readIn(sc, "Player AS szorzoja: "); int playerxp = (int) readIn(sc,
+         * "Player Szintlépéshez szükséges xp mennyisége: "); int unit2Hp = (int)
+         * readIn(sc, "Második egység HP-ja: "); int unit2Dmg = (int) readIn(sc,
+         * "Második egység DMG-je: "); double unit2As = readIn(sc,
+         * "Második egység AS-je: ");
+         *
+         * if (unit1Hp == 0 || unit2Hp == 0) {
+         * System.out.println("\nA HP nem lehet 0!"); return; } else if (unit1Hp == -1
+         * || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1 || playerdmgpl == -1 ||
+         * playerhppl == -1 || playerxp == -1) { System.out.println(sc.next() +
+         * "\nNem érvényes értéket adott meg, adjon meg egy számot! "); return; } if
+         * (unit1As <= 0 || unit2As <= 0 || playeraspl <= 0) {
+         * System.out.println("\nAz attack speed nem lehet egyenlő vagy kisebb mint 0!"
+         * ); return; } if (playerxp ==0){
+         * System.out.println("\nA szinlépéshez szükséges XP nem lehet 0!"); return; }
+         *
+         * // Két Unit létrehozása Player player1 = new Player("Harcos", unit1Dmg,
+         * unit1Hp, unit1As,playerxp,playerdmgpl,playerhppl,playeraspl); Unit unit2 =
+         * new Unit("Sámán", unit2Dmg, unit2Hp, unit2As);
+         *
+         * sc.close(); battle(player1, unit2);
+         *
+         * }
+         */
+
+    }
+
+
+    //METÓDUSOK
     private static void createAndShowGUI() {
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -54,7 +101,7 @@ public class Main {
 
         centerJPanel = new JPanel();
         centerJPanel.setLayout(new FlowLayout());
-        harcJTextArea = new JTextArea(40, 50);
+        harcJTextArea = new JTextArea(30, 40);
         harcJTextArea.setEditable(false);
         JScrollPane scroll = new JScrollPane(harcJTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -66,14 +113,26 @@ public class Main {
         fc = new JFileChooser();
         harcosJButton.addActionListener(e -> {
             fc.showOpenDialog(frame);
-            harcosFile = fc.getSelectedFile();
-            // JOptionPane.showMessageDialog( null, harcosFile.getName());
-            harcosJButton.setEnabled(false);
+            try{
+                harcosFile = fc.getSelectedFile();
+                if (harcosFile.length()>0){
+                    harcosJButton.setEnabled(false);
+                }
+            }catch (NullPointerException ex){
+                ex.printStackTrace();
+            }
         });
         samanJButton.addActionListener(e -> {
             fc.showOpenDialog(frame);
-            samanFile = fc.getSelectedFile();
-            samanJButton.setEnabled(false);
+            try{
+                samanFile = fc.getSelectedFile();
+                if (samanFile.length()>0){
+                    samanJButton.setEnabled(false);
+                }
+            }catch (NullPointerException ex){
+                ex.printStackTrace();
+            }
+
         });
         startJButton.addActionListener(e -> {
             battle(JsonToPlayer(harcosFile.getName()), JsonToUnit(samanFile.getName()));
@@ -86,49 +145,7 @@ public class Main {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
 
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
-
-        /*
-         * if(args.length==2){ battle(JsonToUnit(args[0]), JsonToUnit(args[1]));
-         * 
-         * }else{ Scanner sc = new Scanner(System.in);
-         * 
-         * int unit1Hp = (int) readIn(sc, "Player HP-ja: "); int unit1Dmg = (int)
-         * readIn(sc, "Player DMG-je: "); double unit1As = readIn(sc, "Player AS-je: ");
-         * int playerdmgpl = (int) readIn(sc, "Player DMG növekedése: "); int playerhppl
-         * = (int) readIn(sc, "Player HP növekedése: "); float playeraspl = (int)
-         * readIn(sc, "Player AS szorzoja: "); int playerxp = (int) readIn(sc,
-         * "Player Szintlépéshez szükséges xp mennyisége: "); int unit2Hp = (int)
-         * readIn(sc, "Második egység HP-ja: "); int unit2Dmg = (int) readIn(sc,
-         * "Második egység DMG-je: "); double unit2As = readIn(sc,
-         * "Második egység AS-je: ");
-         * 
-         * if (unit1Hp == 0 || unit2Hp == 0) {
-         * System.out.println("\nA HP nem lehet 0!"); return; } else if (unit1Hp == -1
-         * || unit2Hp == -1 || unit1Dmg == -1 || unit2Dmg == -1 || playerdmgpl == -1 ||
-         * playerhppl == -1 || playerxp == -1) { System.out.println(sc.next() +
-         * "\nNem érvényes értéket adott meg, adjon meg egy számot! "); return; } if
-         * (unit1As <= 0 || unit2As <= 0 || playeraspl <= 0) {
-         * System.out.println("\nAz attack speed nem lehet egyenlő vagy kisebb mint 0!"
-         * ); return; } if (playerxp ==0){
-         * System.out.println("\nA szinlépéshez szükséges XP nem lehet 0!"); return; }
-         * 
-         * // Két Unit létrehozása Player player1 = new Player("Harcos", unit1Dmg,
-         * unit1Hp, unit1As,playerxp,playerdmgpl,playerhppl,playeraspl); Unit unit2 =
-         * new Unit("Sámán", unit2Dmg, unit2Hp, unit2As);
-         * 
-         * sc.close(); battle(player1, unit2);
-         * 
-         * }
-         */
-
-    }
 
     ////////////////////////////////////////////////////////////
 
@@ -150,8 +167,7 @@ public class Main {
         if (unit1.getDMG() == 0 && unit2.getDMG() == 0) {
             // System.out.println("A csapatok visszavonultak, a harc dontetlennel
             // vegzodott.");
-            // harcJTextArea.append("A csapatok visszavonultak, a harc dontetlennel
-            // vegzodott.\n");
+            harcJTextArea.append("A csapatok visszavonultak, a harc dontetlennel vegzodott.\n");
 
             return;
         }
@@ -168,9 +184,9 @@ public class Main {
                 isFirstRound = false;
                 unit1.attack(unit2);
                 unit2.attack(unit1);
-                // harcJTextArea.append("\nA Csata elkezdodott! " + name1 + " es " + name2 + "
-                // megtamadtak egymast. eletük: "
-                // + name1 + " " + unit1.getHp() + ", " + name2 + " " + unit2.getHp() + "\n");
+                 harcJTextArea.append("\nA Csata elkezdodott! " + name1 + " es " + name2 +
+                         " megtamadtak egymast. eletük: " + name1 + " " + unit1.getHp() +
+                         ", " + name2 + " " + unit2.getHp() + "\n");
 
             }
             // Attack speed számolása, melyiké kisebb --> az üthet elősször
@@ -181,15 +197,15 @@ public class Main {
             if (unit1.getAs() == 0) {
                 unit1.attack(unit2);
                 unit1.setAs(defaultAs);
-                // harcJTextArea.append(name1 + " megtamadta " + name2 + ", igy " + name2 + "
-                // elete - " + unit2.getHp() + "\n");
+                 harcJTextArea.append(name1 + " megtamadta " + name2 + ", igy " +
+                         name2 + " elete - " + unit2.getHp() + "\n");
 
             }
             if (unit2.getAs() == 0) {
                 unit2.attack(unit1);
                 unit2.setAs(defaultAs2);
-                // harcJTextArea.append(name2 + " megtamadta " + name1 + ", igy " + name1 + "
-                // elete - " + unit1.getHp() + "\n");
+                 harcJTextArea.append(name2 + " megtamadta " + name1 + ", igy " +
+                         name1 + " elete - " + unit1.getHp() + "\n");
 
             }
             // Éltek még?
@@ -197,15 +213,13 @@ public class Main {
                 bothAlive = false;
             }
         }
-        // Első ütésnél meghalt e vagy nem...
-        // if (isFirstRound)
-        // harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + " EGY
-        // CSAPASSAL GYOZOTT"
-        // : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
-        // else
-        // harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() + "
-        // GYOZEDELMESKEDETT!"
-        // : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
+//         Első ütésnél meghalt e vagy nem...
+         if (isFirstRound)
+         harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() +
+                 " EGY CSAPASSAL GYOZOTT" : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
+         else
+         harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() +
+                 " GYOZEDELMESKEDETT!" : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
 
     }
 
