@@ -1,4 +1,4 @@
-F,SZ,F,F,F,F
+SZ,SZ,F,F,F,F
 X,SZ,SZ,SZ,SZ,F
 F,F,SZ,F,X,F
 F,F,X,F,SZ,F

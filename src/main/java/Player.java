@@ -16,6 +16,7 @@ public class Player extends Unit {
     private int maxHP;
     private int xCoordinate;
     private int yCoordinate;
+    private BufferedImage img;
 
     public Player( String name, int dmg, int hp, double as, int xppl, int dmgipl, int hpipl, float cmpl) {
         super(name,dmg,hp,as);
@@ -28,6 +29,11 @@ public class Player extends Unit {
         this.maxHP=hp;
         this.xCoordinate = 0;
         this.yCoordinate = 0;
+        img = null;
+        try {
+            img = ImageIO.read(new File("src/main/resources/hero.png"));
+        } catch (IOException e) {
+        }
     }
 
     public int attack(Unit enemy) {
@@ -37,16 +43,16 @@ public class Player extends Unit {
     }
     public void move(String move) {
         if (move == "right") {
-            this.xCoordinate++;
-        }
-        if (move == "left") {
-            this.xCoordinate--;
-        }
-        if (move == "up") {
             this.yCoordinate++;
         }
-        if (move == "down") {
+        if (move == "left") {
             this.yCoordinate--;
+        }
+        if (move == "up") {
+            this.xCoordinate--;
+        }
+        if (move == "down") {
+            this.xCoordinate++;
         }
     }
     public boolean isAlive() {
@@ -62,7 +68,24 @@ public class Player extends Unit {
             this.as*=cooldown_multiplier_per_level;
             this.lvl++;
             System.out.println(super.getName()+" a(z)"+this.getLvl()+". szintre lépett");
+
         }
+    }
+
+    public int getxCoordinate() {
+        return xCoordinate;
+    }
+
+    public void setxCoordinate(int xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
+    public int getyCoordinate() {
+        return yCoordinate;
+    }
+
+    public void setyCoordinate(int yCoordinate) {
+        this.yCoordinate = yCoordinate;
     }
 
     public int getDmg_increase_per_level() {

@@ -1,5 +1,6 @@
 import org.json.JSONObject;
 
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,31 +12,39 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 
-public class Main extends JPanel{
+public class Main extends JPanel implements ActionListener {
 
-    private static JPanel northJPanel, centerJPanel, southJPanel;
+    private static JPanel northJPanel, centerJPanel, westJPanel;
     private static JLabel harcosJLabel, levelJLabel;
     private static JTextArea harcJTextArea;
-    private static JButton harcosJButton, samanJButton, startJButton;
+    private static JButton harcosJButton, startJButton,arrow1,arrow2,arrow3,arrow4;
     private static JFileChooser fc;
     private static File harcosFile = new File("Player2.json"), samanFile;
     private static TextField t1;
-    private static int level;
+    private static BufferedImage image;
+    private static Player player;
 
     public static void main(String[] args) {
         harcJTextArea = new JTextArea(30, 40);
-
-
+        player = JsonToPlayer(harcosFile.getName());
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI();
+                try {
+                    createAndShowGUI();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                readMap(player.getxCoordinate(), player.getyCoordinate());
+
             }
         });
     }
+
     //METÓDUSOK
-    private static void createAndShowGUI() {
+    private static void createAndShowGUI() throws IOException {
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -69,15 +78,74 @@ public class Main extends JPanel{
         northJPanel.add(t1);
         northJPanel.add(startJButton);
 
+        //import image and resize it
+        BufferedImage myPicture = ImageIO.read(new File("hero.png"));
+        Image dimg = myPicture.getScaledInstance(200, 200,
+                Image.SCALE_SMOOTH);
+        JLabel picLabel = new JLabel(new ImageIcon(dimg));
 
-        centerJPanel = new JPanel();
-        centerJPanel.setLayout(new FlowLayout());
-        harcJTextArea = new JTextArea(30, 40);
+        JPanel centerJPanel = new JPanel();
+        centerJPanel.setLayout(new BoxLayout(centerJPanel, BoxLayout.PAGE_AXIS));
+        arrow1 = (new BasicArrowButton(BasicArrowButton.NORTH));
+        arrow2 = (new BasicArrowButton(BasicArrowButton.SOUTH));
+        arrow3 = (new BasicArrowButton(BasicArrowButton.EAST));
+        arrow4 = (new BasicArrowButton(BasicArrowButton.WEST));
+        arrow1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(player.getxCoordinate() == 0){
+                    JOptionPane.showMessageDialog(null,"Lépés nem megengedett");
+                }
+                else {
+                    player.move("up");
+                    readMap(player.getxCoordinate(), player.getyCoordinate());
+                }
+            }
+        });
+        arrow2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(player.getxCoordinate() == 5){
+                    JOptionPane.showMessageDialog(null,"Lépés nem megengedett");
+                }
+                else {
+                    player.move("down");
+                    readMap(player.getxCoordinate(), player.getyCoordinate());
+                }
+            }
+        });
+        arrow3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(player.getyCoordinate()==5 ){
+                    JOptionPane.showMessageDialog(null,"Lépés nem megengedett");
+                }
+                else {
+                    player.move("right");
+                    readMap(player.getxCoordinate(), player.getyCoordinate());
+                }
+            }
+        });
+        arrow4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(player.getyCoordinate() ==0){
+                    JOptionPane.showMessageDialog(null,"Lépés nem megengedett");
+                }
+                else {
+                    player.move("left");
+                    readMap(player.getxCoordinate(), player.getyCoordinate());
+                }
+            }
+        });
+
+        centerJPanel.add(arrow1);
+        centerJPanel.add(arrow2);
+        centerJPanel.add(arrow3);
+        centerJPanel.add(arrow4);
+        centerJPanel.add(picLabel);
+        harcJTextArea = new JTextArea(20, 20);
         harcJTextArea.setEditable(false);
         JScrollPane scroll = new JScrollPane(harcJTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         centerJPanel.add(scroll);
-
         c.add(northJPanel, BorderLayout.NORTH);
         c.add(centerJPanel, BorderLayout.CENTER);
 
@@ -91,7 +159,6 @@ public class Main extends JPanel{
                 harcosFile = new File("Player.json");
             }
         });
-
         startJButton.addActionListener(e -> {
             battle(JsonToPlayer(harcosFile.getName()), JsonToUnit(Integer.parseInt(t1.getText())));
         });
@@ -99,7 +166,6 @@ public class Main extends JPanel{
         frame.pack();
         frame.setVisible(true);
     }
-
 
 
     ////////////////////////////////////////////////////////////
@@ -186,7 +252,6 @@ public class Main extends JPanel{
              JOptionPane.showMessageDialog(null,"Sajnos hősünk elveszett","Csata",JOptionPane.INFORMATION_MESSAGE);
          }
          else JOptionPane.showMessageDialog(null,"Hősünk győzedelmeskedett","Csata",JOptionPane.INFORMATION_MESSAGE);
-
     }
 
     public static Unit JsonToUnit(int szörnyszint) {
@@ -214,9 +279,8 @@ public class Main extends JPanel{
         return null;
     }
 
-    private static void readMap(){
+    private static String readMap(int x, int y){
         String [][] map = new String [6][6];
-
         try (BufferedReader br = new BufferedReader(new FileReader("map.txt"))) {
             String line;
             String[] a;
@@ -232,13 +296,17 @@ public class Main extends JPanel{
         } catch (Exception e) {
             System.out.println(e);
         }
-
-        //Ellenőrzés, hogy jól olvasta-e be
-        for (int i = 0; i < 6; i++){
-            for(int j = 0; j < 6; j++){
-                System.out.print(map[i][j] + ' ');
-            }
-            System.out.println();
+        if(map[x][y].equals("SZ")) {
+            System.out.println(map[x][y] +" " +  x + " "+ y);
+            return "SZ";
+        }
+        else if(map[x][y].equals("X")){
+            System.out.println(map[x][y] +" "+ x + " "+ y);
+            return "X";
+        }
+        else {
+            System.out.println(map[x][y] + " " + x + " " + y);
+            return "F";
         }
     }
 
@@ -262,5 +330,10 @@ public class Main extends JPanel{
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
