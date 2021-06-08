@@ -6,6 +6,8 @@ public class Player extends Unit{
     private int xp;
     private int lvl;
     private int maxHP;
+    private int xCoordinate;
+    private int yCoordinate;
 
     public Player( String name, int dmg, int hp, double as, int xppl, int dmgipl, int hpipl, float cmpl) {
         super(name,dmg,hp,as);
@@ -16,6 +18,8 @@ public class Player extends Unit{
         this.xp=0;
         this.lvl=1;
         this.maxHP=hp;
+        this.xCoordinate = 0;
+        this.yCoordinate = 0;
     }
 
     public int attack(Unit enemy) {
@@ -23,7 +27,20 @@ public class Player extends Unit{
         this.lvlup();
         return 0;
     }
-
+    public void move(String move) {
+        if (move == "right") {
+            this.xCoordinate++;
+        }
+        if (move == "left") {
+            this.xCoordinate--;
+        }
+        if (move == "up") {
+            this.yCoordinate++;
+        }
+        if (move == "down") {
+            this.yCoordinate--;
+        }
+    }
     public boolean isAlive() {
         return super.isAlive();
     }
