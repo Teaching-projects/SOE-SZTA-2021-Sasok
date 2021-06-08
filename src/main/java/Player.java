@@ -57,7 +57,31 @@ public class Player extends Unit{
         }
     }
 
-    public int getLvl(){
-        return this.lvl;
+    public int getDmg_increase_per_level() {
+        return dmg_increase_per_level;
+    }
+
+    public int getHp_increase_per_level() {
+        return hp_increase_per_level;
+    }
+
+    public float getCooldown_multiplier_per_level() {
+        return cooldown_multiplier_per_level;
+    }
+
+    public int getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
     }
 }

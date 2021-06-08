@@ -136,9 +136,6 @@ public class Main {
         });
         startJButton.addActionListener(e -> {
             battle(JsonToPlayer(harcosFile.getName()), JsonToUnit(samanFile.getName()));
-
-            JOptionPane.showMessageDialog(null, "Csata elkezdodott!");
-
         });
 
         frame.pack();
@@ -162,8 +159,7 @@ public class Main {
             return answer;
         }
     }
-
-    protected static void battle(Unit unit1, Unit unit2) {
+    protected static void battle(Player unit1, Unit unit2) {
         if (unit1.getDMG() == 0 && unit2.getDMG() == 0) {
             // System.out.println("A csapatok visszavonultak, a harc dontetlennel
             // vegzodott.");
@@ -171,23 +167,25 @@ public class Main {
 
             return;
         }
-
         String name1 = unit1.getName();
         String name2 = unit2.getName();
         boolean bothAlive = true; // mindkettő él
         boolean isFirstRound = true; // első kör
         double defaultAs = unit1.getAs();
         double defaultAs2 = unit2.getAs();
+        int playerLvl = unit1.getLvl();
         while (bothAlive) {
+
             // Ha első kör akkor egyszerre megütik egymást 1. ütés!
             if (isFirstRound) {
                 isFirstRound = false;
                 unit1.attack(unit2);
                 unit2.attack(unit1);
-                 harcJTextArea.append("\nA Csata elkezdodott! " + name1 + " es " + name2 +
-                         " megtamadtak egymast. eletük: " + name1 + " " + unit1.getHp() +
-                         ", " + name2 + " " + unit2.getHp() + "\n");
-
+                if(harcJTextArea != null ) {
+                    harcJTextArea.append("\nA Csata elkezdodott! " + name1 + " es " + name2 +
+                            " megtamadtak egymast. eletük: " + name1 + " " + unit1.getHp() +
+                            ", " + name2 + " " + unit2.getHp() + "\n");
+                }
             }
             // Attack speed számolása, melyiké kisebb --> az üthet elősször
             double lowestAs = Math.min(unit1.getAs(), unit2.getAs());
@@ -199,14 +197,18 @@ public class Main {
                 unit1.setAs(defaultAs);
                  harcJTextArea.append(name1 + " megtamadta " + name2 + ", igy " +
                          name2 + " elete - " + unit2.getHp() + "\n");
-
+                if(unit1.getLvl() != playerLvl) {
+                    harcJTextArea.append(unit1.getName() + " a(z)" + unit1.getLvl() + ". szintre lépett\n");
+                    playerLvl ++;
+                }
             }
             if (unit2.getAs() == 0) {
                 unit2.attack(unit1);
                 unit2.setAs(defaultAs2);
-                 harcJTextArea.append(name2 + " megtamadta " + name1 + ", igy " +
-                         name1 + " elete - " + unit1.getHp() + "\n");
-
+                if(harcJTextArea != null ) {
+                    harcJTextArea.append(name2 + " megtamadta " + name1 + ", igy " +
+                            name1 + " elete - " + unit1.getHp() + "\n");
+                }
             }
             // Éltek még?
             if (unit1.isAlive() == false || unit2.isAlive() == false) {
@@ -218,9 +220,10 @@ public class Main {
          harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() +
                  " EGY CSAPASSAL GYOZOTT" : "\n" + unit2.getName() + " EGY CSAPASSAL GYOZOTT! \n");
          else
-         harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() +
-                 " GYOZEDELMESKEDETT!" : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
-
+         if(harcJTextArea != null ) {
+             harcJTextArea.append(unit1.isAlive() ? "\n" + unit1.getName() +
+                     " GYOZEDELMESKEDETT!" : "\n" + unit2.getName() + " GYOZEDELMESKEDETT!\n");
+         }
     }
 
     public static Unit JsonToUnit(String arg) {
