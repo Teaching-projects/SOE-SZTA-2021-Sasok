@@ -12,4 +12,6 @@ MapAndMove branch ami a mozgás és térkép implementálására van.
   * falnak ütközés nincs
   * szörnynek ütközés nincs
   * Csata kezdődik gomb csak szörnynek ütközéskor kéne hogy megjelenjen!
+  * teszt javítása
+  * nyilak rendszerezése gui-n
 ![image](https://user-images.githubusercontent.com/60651308/121252721-a13b2180-c8a8-11eb-887d-481592e932ce.png)
