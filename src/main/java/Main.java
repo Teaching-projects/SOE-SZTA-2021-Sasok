@@ -20,7 +20,7 @@ public class Main extends JPanel implements ActionListener {
     private static JPanel northJPanel, centerJPanel, westJPanel;
     private static JLabel harcosJLabel, levelJLabel;
     private static JTextArea harcJTextArea;
-    private static JButton harcosJButton, startJButton,arrow1,arrow2,arrow3,arrow4;
+    private static JButton harcosJButton, startJButton, up, down, right, left;
     private static JFileChooser fc;
     private static File harcosFile = new File("Player2.json"), samanFile;
     private static TextField t1;
@@ -37,13 +37,10 @@ public class Main extends JPanel implements ActionListener {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                readMap(player.getxCoordinate(), player.getyCoordinate());
-
             }
         });
     }
 
-    //METÓDUSOK
     private static void createAndShowGUI() throws IOException {
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -65,14 +62,16 @@ public class Main extends JPanel implements ActionListener {
 
         northJPanel = new JPanel();
         northJPanel.setLayout(new FlowLayout());
-        harcosJLabel = new JLabel("Valassza ki a Harcos JSON fajljat");
-        harcosJButton = new JButton("Fajl kivalasztasa");
-        levelJLabel = new JLabel("Valassza ki a nehézségi szintet(1-3)");
+        //harcosJLabel = new JLabel("Valassza ki a Harcos JSON fajljat");
+        //harcosJButton = new JButton("Fajl kivalasztasa");
+        levelJLabel = new JLabel("");
         //samanJButton = new JButton("Fajl kivalasztasa");
         startJButton = new JButton("Csata kezdete");
-        t1=new TextField();
-        northJPanel.add(harcosJLabel);
-        northJPanel.add(harcosJButton);
+        startJButton.setEnabled(false);
+        t1=new TextField("0");
+        t1.setEnabled(false);
+        //northJPanel.add(harcosJLabel);
+        //northJPanel.add(harcosJButton);
         northJPanel.add(levelJLabel);
         //northJPanel.add(samanJButton);
         northJPanel.add(t1);
@@ -86,60 +85,100 @@ public class Main extends JPanel implements ActionListener {
 
         JPanel centerJPanel = new JPanel();
         centerJPanel.setLayout(new BoxLayout(centerJPanel, BoxLayout.PAGE_AXIS));
-        arrow1 = (new BasicArrowButton(BasicArrowButton.NORTH));
-        arrow2 = (new BasicArrowButton(BasicArrowButton.SOUTH));
-        arrow3 = (new BasicArrowButton(BasicArrowButton.EAST));
-        arrow4 = (new BasicArrowButton(BasicArrowButton.WEST));
-        arrow1.addActionListener(new ActionListener() {
+        up = (new BasicArrowButton(BasicArrowButton.NORTH));
+        down = (new BasicArrowButton(BasicArrowButton.SOUTH));
+        right = (new BasicArrowButton(BasicArrowButton.EAST));
+        left = (new BasicArrowButton(BasicArrowButton.WEST));
+
+        up.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(player.getxCoordinate() == 0){
-                    JOptionPane.showMessageDialog(null,"Lépés nem megengedett");
-                }
-                else {
+                String move = readMap(player.getxCoordinate(),player.getyCoordinate(),"up");
+                System.out.println(move);
+                if(move.equals("SZ") || move.equals("X")){
                     player.move("up");
-                    readMap(player.getxCoordinate(), player.getyCoordinate());
+                    if(move.equals("X")){
+                        harcJTextArea.append("\nRHRAHAAHA!!! Hogy mertél a barlangomba lépni? ");
+                        levelJLabel.setText("Szörny szintje: ");
+                        t1.setText(szörnyszint());
+                        t1.setEnabled(false);
+                        startJButton.setEnabled(true);
+                    }
+                    else harcJTextArea.append("\nÉszaknak megyek!");
                 }
+                else if(move.equals("F")){
+                    harcJTextArea.append("\nÚgylátszik falnak ütköztél...");
+                }
+                else harcJTextArea.append("\nMegbolondultál ifjú? A világ szélén állsz, tán le akarsz pottyanni?");
+
             }
         });
-        arrow2.addActionListener(new ActionListener() {
+        down.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(player.getxCoordinate() == 5){
-                    JOptionPane.showMessageDialog(null,"Lépés nem megengedett");
-                }
-                else {
+                String move = readMap(player.getxCoordinate(),player.getyCoordinate(),"down");
+                System.out.println(move);
+                if(move.equals("SZ") || move.equals("X")){
                     player.move("down");
-                    readMap(player.getxCoordinate(), player.getyCoordinate());
+                    if(move.equals("X")){
+                        harcJTextArea.append("\nRHRAHAAHA!!! Hogy mertél a barlangomba lépni? ");
+                        levelJLabel.setText("Szörny szintje: ");
+                        t1.setText(szörnyszint());
+                        t1.setEnabled(false);
+                        startJButton.setEnabled(true);
+                    }
+                    else harcJTextArea.append("\nDélnek megyek!");
                 }
+                else if(move.equals("F")){
+                    harcJTextArea.append("\nÚgylátszik falnak ütköztél...");
+                }
+                else harcJTextArea.append("\nMegbolondultál ifjú? A világ szélén állsz, tán le akarsz pottyanni?");
             }
         });
-        arrow3.addActionListener(new ActionListener() {
+        right.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(player.getyCoordinate()==5 ){
-                    JOptionPane.showMessageDialog(null,"Lépés nem megengedett");
-                }
-                else {
+                String move = readMap(player.getxCoordinate(),player.getyCoordinate(),"right");
+                System.out.println(move);
+                if(move.equals("SZ") || move.equals("X")){
                     player.move("right");
-                    readMap(player.getxCoordinate(), player.getyCoordinate());
+                    if(move.equals("X")){
+                        harcJTextArea.append("\nRHRAHAAHA!!! Hogy mertél a barlangomba lépni? ");
+                        levelJLabel.setText("Szörny szintje: ");
+                        t1.setText(szörnyszint());
+                        t1.setEnabled(false);
+                        startJButton.setEnabled(true);
+                    }
+                    else harcJTextArea.append("\nKeletnek megyek!");
                 }
+                else if(move.equals("F")){
+                    harcJTextArea.append("\nÚgylátszik falnak ütköztél...");
+                }
+                else harcJTextArea.append("\nMegbolondultál ifjú? A világ szélén állsz, tán le akarsz pottyanni?");
             }
         });
-        arrow4.addActionListener(new ActionListener() {
+        left.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(player.getyCoordinate() ==0){
-                    JOptionPane.showMessageDialog(null,"Lépés nem megengedett");
-                }
-                else {
+                String move = readMap(player.getxCoordinate(),player.getyCoordinate(),"left");
+                if(move.equals("SZ") || move.equals("X")){
                     player.move("left");
-                    readMap(player.getxCoordinate(), player.getyCoordinate());
+                    if(move.equals("X")){
+                        harcJTextArea.append("\nRHRAHAAHA!!! Hogy mertél a barlangomba lépni? ");
+                        levelJLabel.setText("Szörny szintje: ");
+                        t1.setText(szörnyszint());
+                        t1.setEnabled(false);
+                        startJButton.setEnabled(true);
+                    }
+                    else harcJTextArea.append("\nNyugatnak megyek!");
                 }
-            }
+                else if(move.equals("F")){
+                    harcJTextArea.append("\nÚgylátszik falnak ütköztél...");
+                }
+                else harcJTextArea.append("\nMegbolondultál ifjú? A világ szélén állsz, tán le akarsz pottyanni?");         }
         });
 
-        centerJPanel.add(arrow1);
-        centerJPanel.add(arrow2);
-        centerJPanel.add(arrow3);
-        centerJPanel.add(arrow4);
+        centerJPanel.add(up);
+        centerJPanel.add(down);
+        centerJPanel.add(right);
+        centerJPanel.add(left);
         centerJPanel.add(picLabel);
         harcJTextArea = new JTextArea(20, 20);
         harcJTextArea.setEditable(false);
@@ -150,7 +189,7 @@ public class Main extends JPanel implements ActionListener {
         c.add(centerJPanel, BorderLayout.CENTER);
 
         fc = new JFileChooser();
-        harcosJButton.addActionListener(e -> {
+        /*harcosJButton.addActionListener(e -> {
             int result = fc.showSaveDialog(frame);
             if(result == JFileChooser.APPROVE_OPTION){
                 harcosFile = fc.getSelectedFile();
@@ -158,7 +197,7 @@ public class Main extends JPanel implements ActionListener {
             else{
                 harcosFile = new File("Player.json");
             }
-        });
+        });*/
         startJButton.addActionListener(e -> {
             battle(JsonToPlayer(harcosFile.getName()), JsonToUnit(Integer.parseInt(t1.getText())));
         });
@@ -168,8 +207,7 @@ public class Main extends JPanel implements ActionListener {
     }
 
 
-    ////////////////////////////////////////////////////////////
-
+    ///////////////////////////FUNCTIONS/////////////////////////////////
     private static double readIn(Scanner sc, String msg) {
         double answer = 0;
 
@@ -251,7 +289,27 @@ public class Main extends JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Hősünk győzedelmeskedett", "Csata", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-
+    public static Player JsonToPlayer(String arg) {
+        String first = arg;
+        try {
+            String contents = new String((Files.readAllBytes(Paths.get(first))));
+            JSONObject o = new JSONObject(contents);
+            String playerjsonNAME = o.getString("NAME");
+            int playerjsonHP = o.getInt("HP");
+            int playerjsonDMG = o.getInt("DMG");
+            double playerjsonAS = o.getDouble("AS");
+            int playerXP = o.getInt("XP");
+            int playerjsonDMGPL = o.getInt("DMGPL");
+            int playerjsonHPPL = o.getInt("HPPL");
+            float playerASPL = o.getFloat("ASPL");
+            Player player = new Player(playerjsonNAME, playerjsonDMG, playerjsonHP, playerjsonAS, playerXP,
+                    playerjsonDMG, playerjsonHPPL, playerASPL);
+            return player;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public static Unit JsonToUnit(int szörnyszint) {
         File firstjson = new File("szörnyek/szörny1.json");
         File secondjson = new File("szörnyek/szörny2.json");
@@ -276,8 +334,11 @@ public class Main extends JPanel implements ActionListener {
         }
         return null;
     }
-
-    private static String readMap(int x, int y){
+    public static String szörnyszint(){
+        int random = (int)(Math.random()*3)+1;
+        return Integer.toString(random);
+    }
+    private static String readMap(int x, int y, String move){
         String [][] map = new String [6][6];
         try (BufferedReader br = new BufferedReader(new FileReader("map.txt"))) {
             String line;
@@ -294,41 +355,33 @@ public class Main extends JPanel implements ActionListener {
         } catch (Exception e) {
             System.out.println(e);
         }
-        if(map[x][y].equals("SZ")) {
-            System.out.println(map[x][y] +" " +  x + " "+ y);
-            return "SZ";
+        if(move == "up"){
+            if(x == 0){
+                return "T";
+            }
+            else return map[x-1][y];
         }
-        else if(map[x][y].equals("X")){
-            System.out.println(map[x][y] +" "+ x + " "+ y);
-            return "X";
+        else if(move == "down"){
+            if(x == 5){
+                return "T";
+            }
+            else return map[x+1][y];
         }
-        else {
-            System.out.println(map[x][y] + " " + x + " " + y);
-            return "F";
+        else if(move == "right"){
+            if(y == 5){
+                return "T";
+            }
+            else return map[x][y+1];
         }
+        else if(move == "left"){
+            if(y == 0){
+                return "T";
+            }
+            else return map[x][y-1];
+        }
+        return "";
     }
 
-    public static Player JsonToPlayer(String arg) {
-        String first = arg;
-        try {
-            String contents = new String((Files.readAllBytes(Paths.get(first))));
-            JSONObject o = new JSONObject(contents);
-            String playerjsonNAME = o.getString("NAME");
-            int playerjsonHP = o.getInt("HP");
-            int playerjsonDMG = o.getInt("DMG");
-            double playerjsonAS = o.getDouble("AS");
-            int playerXP = o.getInt("XP");
-            int playerjsonDMGPL = o.getInt("DMGPL");
-            int playerjsonHPPL = o.getInt("HPPL");
-            float playerASPL = o.getFloat("ASPL");
-            Player player = new Player(playerjsonNAME, playerjsonDMG, playerjsonHP, playerjsonAS, playerXP,
-                    playerjsonDMG, playerjsonHPPL, playerASPL);
-            return player;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
